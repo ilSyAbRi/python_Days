@@ -24,9 +24,10 @@ class Tree(Plant):
     def __init__(self, name, height, age, trunk_diameter):
         super().__init__(name, height, age)
         self.trunk_diameter = trunk_diameter
+        self.shade_area = self.trunk_diameter * 1.5
 
     def produce_shade(self):
-        print(f"{self.name} provides 78 square meters of shade")
+        print(f"{self.name} provides {self.shade_area} square meters of shade")
 
     def show_info(self):
         print(
@@ -52,16 +53,27 @@ class Vegetable(Plant):
 
 
 rose = Flower("Rose", 25, 30, "red")
+lily = Flower("Lily", 20, 25, "white")
+
 oak = Tree("Oak", 500, 1825, 50)
+pine = Tree("Pine", 600, 2000, 60)
+
 tomato = Vegetable("Tomato", 80, 90, "summer", "vitamin C")
+carrot = Vegetable("Carrot", 30, 60, "spring", "vitamin A")
 
 print("=== Garden Plant Types ===")
 
 rose.show_info()
 rose.bloom()
+lily.show_info()
+lily.bloom()
 
 oak.show_info()
 oak.produce_shade()
+pine.show_info()
+pine.produce_shade()
 
 tomato.show_info()
 tomato.show_nutrition()
+carrot.show_info()
+carrot.show_nutrition()
