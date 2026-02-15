@@ -35,7 +35,7 @@ We created a **Plant class** to store information for multiple plants instead of
 
 
 ## File
-- `ft_garden_data.py` – contains the `Plant` class and example plant objects.
+`ft_garden_data.py` – contains the `Plant` class and example plant objects.
 
  ---
 
