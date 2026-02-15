@@ -1,6 +1,6 @@
 # 🌱 Exercise 4 – Garden Security System
 
-**Objective:**<br>
+***Objective:***<br>
 Create a secure Python system that protects plant data from accidental corruption using classes and proper encapsulation.
 
 <br>
@@ -9,26 +9,26 @@ Create a secure Python system that protects plant data from accidental corruptio
 
 ## What This Code Does & What I Learned
 
-- **Private variables:**<br>
+- ***Private variables:***<br>
   `__height` and `__age` are hidden so they cannot be modified directly from outside the class.  
 
-- **Setters and getters:**<br>
+- ***Setters and getters:***<br>
   - `set_height()` and `set_age()` safely update values and print messages.  
   - `get_height()` and `get_age()` allow reading the private values safely.  
 
-- **Data validation:**<br>
+- ***Data validation:***<br>
   Negative heights or ages are rejected with clear messages.  
 
-- **Encapsulation:**<br>
+- ***Encapsulation:***<br>
   Practiced protecting important data while allowing controlled access.  
 
-- **Printing & formatting:**<br>
+- ***Printing & formatting:***<br>
   Learned the difference between using commas and `+ str()` in `print()`:  
   - **Commas** automatically add a space and convert numbers to strings, which is convenient.  
   - **`+ str()`** lets you control spacing and formatting manually, but you must convert numbers yourself and add spaces where needed.<br>
     Using both helped me understand how Python prints work and how to make the output look exactly like I want.  
 
-- **Interactive mode lesson:**<br>
+- ***Interactive mode lesson:***<br>
   Even in `python -i`, private variables cannot be accessed directly — only through getters and setters.
 
 <br>
@@ -39,7 +39,6 @@ Create a secure Python system that protects plant data from accidental corruptio
 
 ## How It Works
 
-<br>
 
 1. A `SecurePlant` object is created with a name.  
 2. Use `set_height()` and `set_age()` to safely update plant data.  
@@ -48,6 +47,7 @@ Create a secure Python system that protects plant data from accidental corruptio
 5. The current plant data is printed in a clean, readable format at the end.  
 
 <br>
+
 ---
 
 <br>
@@ -71,8 +71,8 @@ Current plant: Rose (25cm, 30 days)
 
 This exercise reinforced:<br>
 
-- **Safe object-oriented programming**  
-- **Data validation**  
-- **Clear Python coding practices**  
+- ***Safe object-oriented programming***  
+- ***Data validation***
+- ***Clear Python coding practices*** 
 
 It also gave practical insight into **why encapsulation matters**, even in a simple plant management system.
