@@ -30,12 +30,14 @@ We created a **Plant class** to store information for multiple plants instead of
       self.age = age
 ```
 
+
 ---
+
 
 ## File
 - `ft_garden_data.py` – contains the `Plant` class and example plant objects.
 
----
+ ---
 
 ## Example Usage
 ```python
