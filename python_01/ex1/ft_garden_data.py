@@ -1,10 +1,13 @@
 class Plant:
+    """A plant with name, height, and age."""
     def __init__(box, name, height, age):
+        """Initialize plant with name, height (cm), and age (days)."""
         box.name = name
         box.height = height
         box.age = age
 
     def get_info(box):
+        """Return plant info as a string."""
         return f"{box.name}: {box.height}cm, {box.age} days old"
 
 
