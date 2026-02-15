@@ -15,7 +15,7 @@ class Flower(Plant):
 
     def show_info(self):
         print(
-            f"{self.name} (Flower): {self.height}cm, {self.age} days, "
+            f"\n{self.name} (Flower): {self.height}cm, {self.age} days, "
             f"{self.color} color"
         )
 
@@ -30,7 +30,7 @@ class Tree(Plant):
 
     def show_info(self):
         print(
-            f"{self.name} (Tree): {self.height}cm, {self.age} days, "
+            f"\n{self.name} (Tree): {self.height}cm, {self.age} days, "
             f"{self.trunk_diameter}cm diameter"
         )
 
@@ -46,7 +46,7 @@ class Vegetable(Plant):
 
     def show_info(self):
         print(
-            f"{self.name} (Vegetable): {self.height}cm, {self.age} days, "
+            f"\n{self.name} (Vegetable): {self.height}cm, {self.age} days, "
             f"{self.harvest_season} harvest"
         )
 
