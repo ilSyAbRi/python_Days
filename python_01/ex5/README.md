@@ -22,11 +22,11 @@ Specialized child classes add their own features:
   - Attributes: `harvest_season`, `nutritional_value`  
   - No extra method, just displays info  
 
-Multiple **instances** are created for each type to show how objects hold their own data. <br>
-`super()` is used in child classes to initialize the parent attributes. <br>
-Methods like `show_info()` and f-strings keep the output clean and readable. <br>
-Flower and Tree have actions, while Vegetable only shows information. <br>
-This approach demonstrates **code reuse** and avoids duplication of shared traits. <br>
+- Multiple **instances** are created for each type to show how objects hold their own data. <br>
+- `super()` is used in child classes to initialize the parent attributes. <br>
+- Methods like `show_info()` and f-strings keep the output clean and readable. <br>
+- Flower and Tree have actions, while Vegetable only shows information. <br>
+- This approach demonstrates **code reuse** and avoids duplication of shared traits. <br>
 
 ---
 
