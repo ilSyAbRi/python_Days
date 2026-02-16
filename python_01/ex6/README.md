@@ -36,9 +36,9 @@ Plant types
 
 - Helps separate “managing gardens” vs “calculating stats”
 
-### Types of Methods in GardenManager
+## Types of Methods in GardenManager
 
-#### Instance Methods
+### Instance Methods
 
 - Work on one specific garden
 
@@ -48,7 +48,7 @@ Plant types
 
 - Use when you want to affect only one garden
 
-#### Class Methods (@classmethod)
+### Class Methods (@classmethod)
 
 - Work on the class itself, not a single object
 
@@ -58,7 +58,7 @@ Plant types
 
 - Use when you want to affect or get info about all gardens
 
-#### Static Methods (@staticmethod)
+### Static Methods (@staticmethod)
 
 - Don’t depend on instance or class
 
@@ -149,7 +149,7 @@ GardenManager.all_gardens.append(self)
 
 ## Build the full system
 
-1. Plant classes
+### 1. Plant classes
 
 - Plant → base
 
@@ -157,19 +157,19 @@ GardenManager.all_gardens.append(self)
 
 - PrizeFlower → adds prize points
 
-2. GardenManager class
+### 2. GardenManager class
 
 - self.plants → plants in this garden
 
 - all_gardens → class variable, tracks all gardens
 
-3. Nested GardenStats
+### 3. Nested GardenStats
 
 - Calculates analytics for a specific garden
 
--> Example: total growth, number of plants, plant types
+> Example: total growth, number of plants, plant types
 
-4. Methods
+### 4. Methods
 
 - Instance → add_plant(), grow_all_plants(), show_report()
 
@@ -177,7 +177,7 @@ GardenManager.all_gardens.append(self)
 
 - Static → validate_height()
 
-5. Output
+### 5. Output
 
 - Add plants to gardens
 
