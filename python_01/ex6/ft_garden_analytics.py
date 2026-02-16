@@ -30,22 +30,47 @@ class GardenManager:
     def grow_all_plants(self):
         for plant in self.plants:
             plant.height += 1
-    class GardenStats:
-        def __init___(self, garden):
-            self.garden = garden
-        def total_growth(self):
-            return sum
 
+
+    class GardenStats:
+        def __init__(self, garden):
+            self.garden = garden
+        
+        def plant_count(self):
+            return len(self.garden.plants)
+
+        def total_growth(self):
+            total = 0
+            for plant in self.garden.plants:
+                total += plant.height
+            return total
+
+        def plant_types(self):
+            plants = 0
+            flowering = 0
+            prize = 0
+
+            for plant in self.garden.plants:
+                if type(plant) == PrizeFlower:
+                    prize += 1
+                elif type(plant) == FloweringPlant:
+                    flowering += 1
+                else:
+                    plant += 1
+            return plants, flowering, prize
+
+alice = GardenManager("Alice")
 rose = FloweringPlant("Rose", 25, "Red")
 sunflower = PrizeFlower("Sunflower", 50, "Yellow", 10)
 
-alice = GardenManager("Alice")
-bob = GardenManager("Bob")
-
 alice.add_plant(rose)
 alice.add_plant(sunflower)
-bob.add_plant(FloweringPlant("Tulip", 20, "Pink"))
 
-print("Alice's plants:", [p.name for p in alice.plants])
-print("Bob's plants:", [p.name for p in bob.plants])
-print("Total gardens:", len(GardenManager.all_gardens))
+alice_stats = GardenManager.GardenStats(alice)
+
+print("Total growth:", alice_stats.total_growth())
+print("Number of plants:", alice_stats.plant_count())
+plants, flowering, prize = alice_stats.plant_types()
+print("Plants:", plants)
+print("Flowering Plants:", flowering)
+print("Prize Flowers:", prize)

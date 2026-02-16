@@ -66,28 +66,29 @@ class Vegetable(Plant):
         )
 
 
-rose = Flower("Rose", 25, 30, "red")
-lily = Flower("Lily", 20, 25, "white")
+if __name__ == "__main__":
+    rose = Flower("Rose", 25, 30, "red")
+    lily = Flower("Lily", 20, 25, "white")
 
-oak = Tree("Oak", 500, 1825, 50)
-pine = Tree("Pine", 600, 2000, 60)
+    oak = Tree("Oak", 500, 1825, 50)
+    pine = Tree("Pine", 600, 2000, 60)
 
-tomato = Vegetable("Tomato", 80, 90, "summer", "vitamin C")
-carrot = Vegetable("Carrot", 30, 60, "spring", "vitamin A")
+    tomato = Vegetable("Tomato", 80, 90, "summer", "vitamin C")
+    carrot = Vegetable("Carrot", 30, 60, "spring", "vitamin A")
 
-print("=== Garden Plant Types ===")
+    print("=== Garden Plant Types ===")
 
-rose.show_info()
-rose.bloom()
-lily.show_info()
-lily.bloom()
+    rose.show_info()
+    rose.bloom()
+    lily.show_info()
+    lily.bloom()
 
-oak.show_info()
-oak.produce_shade()
-pine.show_info()
-pine.produce_shade()
+    oak.show_info()
+    oak.produce_shade()
+    pine.show_info()
+    pine.produce_shade()
 
-tomato.show_info()
-tomato.show_nutrition()
-carrot.show_info()
-carrot.show_nutrition()
+    tomato.show_info()
+    tomato.show_nutrition()
+    carrot.show_info()
+    carrot.show_nutrition()
