@@ -68,6 +68,14 @@ Plant types
 
 - Use for helpers that don’t need garden data
 
+##### Quick summary:
+
+- Instance → per garden
+
+- Class → whole system
+
+- Static → helper functions
+
 ```
 Plant             → name, height, grow()
    ↓
