@@ -1,3 +1,41 @@
+## What is a nested class?
+
+-> A nested class is just a class defined inside another class.
+```py
+class GardenManager:
+    
+    class GardenStats:   # nested class
+        def __init__(self, garden):
+            self.garden = garden
+
+```
+- GardenStats only exists inside GardenManager.
+- You access it like: GardenManager.GardenStats(garden1)
+
+### Why do we use it here?
+
+#### Think of the problem:
+
+- Each garden has plants
+
+- We want to calculate stats for each garden:
+```
+Total growth
+
+Number of plants
+
+Plant types
+```
+- We don’t want these functions floating around globally, because they belong to a garden system, not the world.
+
+#### Nested class solves this:
+
+- Keeps stats logic inside GardenManager → organized
+
+- Makes clear that GardenStats only works with gardens
+
+- Helps separate “managing gardens” vs “calculating stats”
+
 ```
 Plant             → name, height, grow()
    ↓
