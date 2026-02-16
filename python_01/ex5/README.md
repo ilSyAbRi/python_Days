@@ -1,5 +1,7 @@
 # 🌿 Exercise 5 – Specialized Plant Types
 
+“I’ll leave this exercise for later.”
+
 This exercise practices **Object-Oriented Programming (OOP)** in Python.  
 It demonstrates how a base class can store shared traits while child classes handle unique features. <br>
 
