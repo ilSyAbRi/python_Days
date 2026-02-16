@@ -36,6 +36,38 @@ Plant types
 
 - Helps separate “managing gardens” vs “calculating stats”
 
+### Types of Methods in GardenManager
+
+#### Instance Methods
+
+- Work on one specific garden
+
+- Access instance variables like self.plants
+
+-> Example: add_plant(), grow_all_plants(), show_report()
+
+- Use when you want to affect only one garden
+
+#### Class Methods (@classmethod)
+
+- Work on the class itself, not a single object
+
+- Access class variables like all_gardens
+
+-> Example: total_gardens(), create_garden_network()
+
+- Use when you want to affect or get info about all gardens
+
+#### Static Methods (@staticmethod)
+
+- Don’t depend on instance or class
+
+- Useful for utility functions inside the class
+
+-> Example: validate_height()
+
+- Use for helpers that don’t need garden data
+
 ```
 Plant             → name, height, grow()
    ↓
