@@ -14,30 +14,18 @@ starting age)
 Consider how you might set up plants with their starting values efficiently. What would
 make creating many plants easier?
 ```
-### 📌 What We Learned
-- How to **efficiently create multiple Plant objects** from a list of raw data (`plants_data`).  
-- The difference between **raw data** (tuples) and **objects**:
-  - `plants_data` stores the initial information for each plant.
-  - `plants` stores the actual Plant objects created from that data.
-- Why keeping raw data separate from objects allows **reusability** and independent manipulation of each object.
+## 🎯 What I Learned
 
-### 🖥 Code Explanation
+From this exercise, I mainly practiced and reinforced concepts I had already learned in previous exercises:
 
-1. **Class Definition**  
-   We define a `Plant` class with a method `get_info()` that returns the plant's details as a readable string.
+- Using the `__init__` method to initialize objects with different values  
+- Reusing an existing class to create multiple instances  
+- Storing objects inside a list  
+- Looping through a list of objects  
+- Calling a method for each object  
+- Formatting output using f-strings  
 
-2. **Raw Data**  
-   `plants_data` is a list of tuples containing each plant's **name, height, and age**. This acts as our source data.
-
-3. **Creating Plant Objects**  
-   Using **list comprehension**, we create a list of `Plant` objects (`plants`) from `plants_data`.  
-   This allows creating multiple objects efficiently and independently.
-
-4. **Displaying Plants**  
-   We loop through the `plants` list and call `get_info()` on each object to display its information in an organized format.
-
-5. **Total Count**  
-   Finally, we print the **total number of plants created**, giving a clear summary of the factory output.
+This exercise helped me better understand how to work with multiple objects together in a small program.
 
 ### 📂 Example Output
 
