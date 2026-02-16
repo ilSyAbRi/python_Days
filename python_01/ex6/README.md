@@ -37,3 +37,22 @@ all_gardens (class variable)
 [alice, bob]
 
 ```
+
+## Diagram: Class Variable vs Instance Variable
+
+```
+            GardenManager Class
+       +----------------------------+
+       | all_gardens = [alice,bob] |  <-- Class Variable (shared)
+       +----------------------------+
+                 ↑
+                 ↑ used by all instances
+
+alice (instance of GardenManager)           bob (instance of GardenManager)
++---------------------+                     +---------------------+
+| owner = "Alice"     |                     | owner = "Bob"       |
+| plants = ["Rose"]   | <-- Instance var     | plants = ["Oak"]    | <-- Instance var
++---------------------+                     +---------------------+
+
+
+```
