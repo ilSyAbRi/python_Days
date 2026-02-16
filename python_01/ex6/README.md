@@ -56,3 +56,15 @@ alice (instance of GardenManager)           bob (instance of GardenManager)
 
 
 ```
+
+## Tracking All Gardens
+```
+GardenManager.all_gardens.append(self)
+```
+- Adds the current garden object (self) to the shared class list all_gardens.
+
+- all_gardens is a class variable that keeps track of every garden created.
+
+- append() is a built-in Python list method that adds items to the end of a list.
+
+- This ensures the system can access all gardens at once, for example to calculate totals, scores, or create a network.
