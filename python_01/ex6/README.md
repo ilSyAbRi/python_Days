@@ -146,3 +146,45 @@ GardenManager.all_gardens.append(self)
 - append() is a built-in Python list method that adds items to the end of a list.
 
 - This ensures the system can access all gardens at once, for example to calculate totals, scores, or create a network.
+
+## Build the full system
+
+1. Plant classes
+
+- Plant → base
+
+- FloweringPlant → adds flowers
+
+- PrizeFlower → adds prize points
+
+2. GardenManager class
+
+- self.plants → plants in this garden
+
+- all_gardens → class variable, tracks all gardens
+
+3. Nested GardenStats
+
+- Calculates analytics for a specific garden
+
+-> Example: total growth, number of plants, plant types
+
+4. Methods
+
+- Instance → add_plant(), grow_all_plants(), show_report()
+
+- Class → total_gardens(), create_garden_network()
+
+- Static → validate_height()
+
+5. Output
+
+- Add plants to gardens
+
+- Grow plants
+
+- Show reports
+
+- Use class method to show total gardens
+
+- Use static method for validation
