@@ -57,3 +57,17 @@ This document summarizes all the key theory studied so far for handling agricult
 - `ValueError` is a **built-in Python exception type**.  
 - It happens when a function receives a value that is **not valid for its operation**.  
 
+5️⃣ Summary of Key Points
+
+- try → attempt code that might fail.
+
+- except → catch and handle errors.
+
+- Exception → object created by Python when an error occurs.
+
+- Catching exceptions → prevents program crash and keeps it running.
+
+- ValueError → specific type of exception for invalid values.
+
+- Using try/except is essential in data validation, especially for user input or sensor data.
+
