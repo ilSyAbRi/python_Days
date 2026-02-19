@@ -1,19 +1,41 @@
-def garden_operations()
+def garden_operations():
+    print("=== Garden Error Types Demo ===")
     try:
         x = int("abc")
-    except Exception as e:
-        if type(e) == ValueError:
-            print("Testing ValueError...")
-            print("Caught ValueError: invalid literal for int()")
-        elif type(e) == ZeroDivisionError:
-            print("Testing ZeroDivisionError...")
-            print("Caught ZeroDivisionError: division by zero")
-        elif type(e) == FileNotFoundError
-            print("Testing FileNotFoundError...")
-            print("Caught FileNotFoundError: No such file 'missing.txt'")
-        elif type(e) == KeyError:
-            print("Testing KeyError...")
-            print("Caught KeyError: 'missing\_plant'")
-        else
-            print("Testing multiple errors together...")
-            print("Caught an error, but program continues!")
+    except ValueError:
+        print("\nTesting ValueError...")
+        print("Caught ValueError: invalid literal for int()")
+    try:
+        1 / 0
+    except ZeroDivisionError:
+        print("\nTesting ZeroDivisionError...")
+        print("Caught ZeroDivisionError: division by zero")
+
+    try:
+        open("missing.txt")
+    except FileNotFoundError:
+        print("\nTesting FileNotFoundError...")
+        print("Caught FileNotFoundError: No such file 'missing.txt'")
+    try:
+        x = {
+            "plant" : "rose"
+            }
+        x["missing_plant"]
+    except KeyError:
+        print("\nTesting KeyError...")
+        print("Caught KeyError: 'missing\_plant'")
+    print("\nTesting multiple errors together...")
+    try:
+        int("abc")
+        1 / 0
+        open("missing.txt")
+        d = {"plant": "rose"}
+        d["missing_plant"]
+    except (ValueError, ZeroDivisionError, FileNotFoundError, KeyError):
+        print("Caught an error, but program continues!")
+
+
+def test_error_types():
+    garden_operations()
+    print("\nAll error types tested successfully!")
+test_error_types()
