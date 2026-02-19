@@ -18,6 +18,10 @@ Main objectives:
 - Ensure the program continues running after errors occur
 - Practice structured error handling with `try / except`
 
+<br>
+
+---
+
 ### 📘 Dictionary and KeyError (Exercise 1)
 
 A **dictionary** in Python is a built-in data structure that stores data as  
@@ -35,6 +39,9 @@ d["plant"]
 When a program attempts to access a key that does not exist in the dictionary:
 d["missing_plant"]
 
+<br>
+
+---
 
 ### Handling Exceptions in Python
 
@@ -64,11 +71,18 @@ except ValueError as e:
     print(e) 
 ```
 
+<br>
+
+---
+
 #### Key Points:
 
 - Using as e allows you to inspect the error object or print its message without crashing the program.
 
 - You can also use type(e) to check which blueprint/class was used to create the error object.
+
+<br>
+---
 
 #### Analogy:
 
@@ -81,7 +95,8 @@ except ValueError as e:
 - print(e) = see the contents of the house
 
 - type(e) = see which blueprint was used to build the house
-
+<br>
+---
 #### Example:
 
 ```py
