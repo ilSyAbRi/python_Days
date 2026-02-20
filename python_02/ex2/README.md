@@ -43,3 +43,28 @@ By inheriting from Exception, GardenError becomes a proper Python error while st
 - Keep our error hierarchy clean and organized
 
 ***So even though GardenError is the parent of PlantError and WaterError in our garden world, it’s also a child of Python’s Exception class. This makes it both usable by Python and meaningful in our program.***
+
+### How `raise` Works in Python
+
+In Python, `raise` is used to **throw an exception**. It works with **instances of classes that inherit from `Exception`**.  
+
+For example:
+
+```python
+raise PlantError("The tomato plant is wilting!")
+```
+
+
+- PlantError is a class (blueprint).
+
+- PlantError("The tomato plant is wilting!") creates an instance (an object) with the message.
+
+- raise throws that object, and Python looks for a matching try/except to catch it.
+
+**Why subclass Exception?
+
+- Python only allows raising objects whose class inherits from Exception.
+
+- Subclasses let you organize your errors: you can catch specific errors or groups of related errors using a parent class.
+
+> In Python, `raise` is used to throw an error when something goes wrong. When you write `raise PlantError("The tomato plant is wilting!")`, Python does two things: first, it **creates an instance (object) of the `PlantError` class** with the message you provide; then it **throws that object** so it can be caught by a `try/except` block. The class must inherit from `Exception` so Python recognizes it as a valid error type. Using subclasses lets you organize errors, so you can catch either specific errors (like `PlantError`) or a whole group of related errors (like `GardenError`) in a single `except` block.
