@@ -15,15 +15,15 @@ def water_plants(plant_list):
 def test_watering_system():
     print("=== Garden Watering System ===")
 
-    print("Testing normal watering...")
+    print("\nTesting normal watering...")
     good_list = ["tomato", "lettuce", "carrots"]
     water_plants(good_list)
 
-    print("Testing with error...")
+    print("\nTesting with error...")
     bad_list = ["tomato", None, "carrots"]
     water_plants(bad_list)
 
-    print("Cleanup always happens, even with errors!")
+    print("\nCleanup always happens, even with errors!")
 
 
 if __name__ == "__main__":
