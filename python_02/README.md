@@ -6,9 +6,7 @@ You will process agricultural sensor data (temperature, humidity, soil moisture,
 
 - Each exercise builds a part of a complete agricultural monitoring system, from basic sensor validation to full data monitoring and alerts.
 
-### Day 02 Python Subject
-
-This is the subject for **Day 02** in Python.  
+ ***Day 02 Python Subject***
 [Click here to download the PDF](subject_py02.pdf)
 
 ---
