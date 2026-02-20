@@ -1,4 +1,5 @@
 def garden_operations():
+    """Demonstrate handling common Python errors in garden operations."""
     print("=== Garden Error Types Demo ===")
     try:
         x = int("abc")
@@ -34,6 +35,7 @@ def garden_operations():
 
 
 def test_error_types():
+    """Run garden_operations and confirm all errors are tested."""
     garden_operations()
     print("\nAll error types tested successfully!")
 
