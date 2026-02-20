@@ -1,20 +1,25 @@
 class GardenError(Exception):
+    """Base class for all garden-related errors."""
     pass
 
 
 class PlantError(GardenError):
+    """Raised for problems related to plants."""
     pass
 
 
 class WaterError(GardenError):
+    """Raised for problems related to watering."""
     pass
 
 
 def check_plant():
+    """Simulate a plant check and raise PlantError if the plant is wilting."""
     raise PlantError("The tomato plant is wilting!")
 
 
 def check_water():
+    """Simulate a water check and raise WaterError if water is insufficient."""
     raise WaterError("Not enough water in the tank!")
 
 
