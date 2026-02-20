@@ -23,30 +23,31 @@ def check_water():
     raise WaterError("Not enough water in the tank!")
 
 
-print("=== Custom Garden Errors Demo ===")
+if __name__ == "__main__":
+    print("=== Custom Garden Errors Demo ===")
 
-print("\nTesting PlantError...")
-try:
-    check_plant()
-except PlantError as e:
-    print("Caught PlantError:", e)
+    print("\nTesting PlantError...")
+    try:
+        check_plant()
+    except PlantError as e:
+        print("Caught PlantError:", e)
 
-print("\nTesting WaterError...")
-try:
-    check_water()
-except WaterError as e:
-    print("Caught WaterError:", e)
+    print("\nTesting WaterError...")
+    try:
+        check_water()
+    except WaterError as e:
+        print("Caught WaterError:", e)
 
-print("\nTesting catching all garden errors...")
+    print("\nTesting catching all garden errors...")
 
-try:
-    check_plant()
-except GardenError as e:
-    print("Caught a garden error:", e)
+    try:
+        check_plant()
+    except GardenError as e:
+        print("Caught a garden error:", e)
 
-try:
-    check_water()
-except GardenError as e:
-    print("Caught a garden error:", e)
+    try:
+        check_water()
+    except GardenError as e:
+        print("Caught a garden error:", e)
 
-print("\nAll custom error types work correctly!")
+    print("\nAll custom error types work correctly!")
