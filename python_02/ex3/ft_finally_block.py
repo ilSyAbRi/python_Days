@@ -1,4 +1,5 @@
 def water_plants(plant_list):
+    """Water plants and always clean up."""
     print("Opening watering system")
     try:
         for plant in plant_list:
@@ -13,6 +14,7 @@ def water_plants(plant_list):
 
 
 def test_watering_system():
+    """Run tests for the watering system."""
     print("=== Garden Watering System ===")
 
     print("\nTesting normal watering...")
