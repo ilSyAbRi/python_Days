@@ -1,17 +1,27 @@
 class GardenError(Exception):
     """Base class for all garden errors."""
+    pass
+
+class PlantError(GardenError):
+    """Raised for plant-specific problems."""
+    pass
+
+class WaterError(GardenError):
+    """Raised for watering issues."""
+    pass
+
+
+class GardenManager:
     def __init__(self):
         self.plants = []
 
     def add_plant(self, name):
-        """Add a plant with validation."""
         if not name:
             raise PlantError("Plant name cannot be empty!")
         self.plants.append(name)
         print(f"Added {name} successfully")
 
     def water_plants(self):
-        """Water all plants safely."""
         print("Opening watering system")
         try:
             for plant in self.plants:
@@ -24,7 +34,6 @@ class GardenError(Exception):
             print("Closing watering system (cleanup)")
 
     def check_health(self, plant, water, sun):
-        """Check plant health and raise errors if levels are wrong."""
         try:
             if water < 1:
                 raise WaterError(f"Water level {water} too low (min 1)")
@@ -39,33 +48,28 @@ class GardenError(Exception):
             print(f"Error checking {plant}: {e}")
 
 
-class PlantError(GardenError):
-    """Raised for plant-specific problems."""
-    pass
-
-class WaterError(GardenError):
-    """Raised for watering issues."""
-    pass
-
 if __name__ == "__main__":
     print("=== Garden Management System ===")
     garden = GardenManager()
-    print("Adding plants to garden...")
+    print("\nAdding plants to garden...")
     for name in ["tomato", "lettuce", ""]:
         try:
             garden.add_plant(name)
         except PlantError as e:
             print(f"Error adding plant: {e}")
-    print("Watering plants...")
+
+    print("\nWatering plants...")
     garden.water_plants()
-    print("Checking plant health...")
+
+    print("\nChecking plant health...")
     garden.check_health("tomato", 5, 8)
     garden.check_health("lettuce", 15, 6)
-    print("Testing error recovery...")
+
+    print("\nTesting error recovery...")
     try:
         raise WaterError("Not enough water in tank")
     except GardenError as e:
         print(f"Caught GardenError: {e}")
         print("System recovered and continuing...")
 
-    print("Garden management system test complete!")
+    print("\nGarden management system test complete!")
