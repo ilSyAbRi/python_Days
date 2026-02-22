@@ -2,9 +2,11 @@ class GardenError(Exception):
     """Base class for all garden errors."""
     pass
 
+
 class PlantError(GardenError):
     """Raised for plant-specific problems."""
     pass
+
 
 class WaterError(GardenError):
     """Raised for watering issues."""
