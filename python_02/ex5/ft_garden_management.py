@@ -14,16 +14,20 @@ class WaterError(GardenError):
 
 
 class GardenManager:
+    """Manages plants in the garden."""
     def __init__(self):
+        """Initialize an empty garden."""
         self.plants = []
 
     def add_plant(self, name):
+        """Add a plant to the garden."""
         if not name:
             raise PlantError("Plant name cannot be empty!")
         self.plants.append(name)
         print(f"Added {name} successfully")
 
     def water_plants(self):
+        """Water all plants in the garden."""
         print("Opening watering system")
         try:
             for plant in self.plants:
@@ -36,6 +40,7 @@ class GardenManager:
             print("Closing watering system (cleanup)")
 
     def check_health(self, plant, water, sun):
+        """Check plant health using water and sunlight."""
         try:
             if water < 1:
                 raise WaterError(f"Water level {water} too low (min 1)")
