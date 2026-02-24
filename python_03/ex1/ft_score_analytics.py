@@ -2,13 +2,14 @@ import sys
 
 print("=== Player Score Analytics ===")
 if (len(sys.argv) == 1):
-    print("No scores provided. Usage: python3 ft_score_analytics.py <score1> <score2> ...")
+    print("No scores provided. Usage: \
+python3 ft_score_analytics.py <score1> <score2> ...")
 else:
     scores = []
     i = 1
     while i < len(sys.argv):
-        try :
-            score[i] = int(sys.argv[i])
+        try:
+            score = int(sys.argv[i])
             scores.append(score)
         except ValueError:
             print("Invalid score ignored:", sys.argv[i])
