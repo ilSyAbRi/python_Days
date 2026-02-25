@@ -23,3 +23,13 @@ def coordinate_system():
     x2, y2, z2 = parsed_position
     distance2 = math.sqrt((x2 - x1)**2 + (y2 - y1)**2 + (z2 - z1)**2)
     print(f"Distance between {origin} and {parsed_position}: {distance2}")
+
+    invalid_str = "abc,def,ghi"
+    print(f'Parsing invalid coordinates: "{invalid_str}"')
+
+    try:
+        parts = invalid_str.split(",")
+        bad_position = (int(parts[0]), int(parts[1]), int(parts[2]))
+    except Exception as e:
+        print("Error parsing coordinates:", e)
+        print("Error details - Type:", type(e).__name__, ", Args:", e.args)
