@@ -33,3 +33,8 @@ def coordinate_system():
     except Exception as e:
         print("Error parsing coordinates:", e)
         print("Error details - Type:", type(e).__name__, ", Args:", e.args)
+
+    print("Unpacking demonstration:")
+    x, y, z = parsed_position
+    print(f"Player at x={x}, y={y}, z={z}")
+    print(f"Coordinates: X={x}, Y={y}, Z={z}")
