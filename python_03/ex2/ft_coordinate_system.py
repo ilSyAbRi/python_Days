@@ -38,3 +38,5 @@ def coordinate_system():
     x, y, z = parsed_position
     print(f"Player at x={x}, y={y}, z={z}")
     print(f"Coordinates: X={x}, Y={y}, Z={z}")
+
+    coordinate_system()
