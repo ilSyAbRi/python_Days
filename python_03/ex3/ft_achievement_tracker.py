@@ -1,9 +1,36 @@
+
+my_dict = {
+    "alice": [
+        "first_blood",
+        "pixel_perfect",
+        "speed_runner",
+        "first_blood",
+        "first_blood",
+    ],
+    "bob": [
+        "level_master",
+        "boss_hunter",
+        "treasure_seeker",
+        "level_master",
+        "level_master",
+    ],
+    "charlie": [
+        "treasure_seeker",
+        "boss_hunter",
+        "combo_king",
+        "first_blood",
+        "boss_hunter",
+        "first_blood",
+        "boss_hunter",
+        "first_blood",
+    ],
+}
+
 print("=== Achievement Tracker System ===")
 
-alice = {"first_kill", "level_10", "treasure_hunter", "speed_demon"}
-bob = {"first_kill", "level_10", "boss_slayer", "collector"}
-charlie = {"level_10", "treasure_hunter", "boss_slayer",
-           "speed_demon", "perfectionist"}
+alice = set(my_dict["alice"])
+bob = set(my_dict["bob"])
+charlie = set(my_dict["charlie"])
 
 print("\nPlayer alice achievements:", alice)
 print("Player bob achievements:", bob)
