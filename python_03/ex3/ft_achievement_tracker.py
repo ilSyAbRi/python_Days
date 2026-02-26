@@ -8,3 +8,17 @@ charlie = {"level_10", "treasure_hunter", "boss_slayer",
 print("Player alice achievements:", alice)
 print("Player bob achievements:", bob)
 print("Player charlie achievements:", charlie)
+
+print("=== Achievement Analytics ===")
+
+all_achievements = alice.union(bob).union(charlie)
+print("All unique achievements:", all_achievements)
+
+print("Total unique achievements:", len(all_achievements))
+
+alice_bob_shared = alice.intersection(bob)
+alice_charlie_shared = alice.intersection(charlie)
+bob_charlie_shared = bob.intersection(charlie)
+
+shared = alice_bob_shared.union(alice_charlie_shared).union(bob_charlie_shared)
+rare = all_achievements.difference(shared)
