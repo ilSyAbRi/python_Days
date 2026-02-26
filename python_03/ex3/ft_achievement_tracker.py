@@ -5,7 +5,7 @@ bob = {"first_kill", "level_10", "boss_slayer", "collector"}
 charlie = {"level_10", "treasure_hunter", "boss_slayer",
            "speed_demon", "perfectionist"}
 
-print("Player alice achievements:", alice)
+print("\nPlayer alice achievements:", alice)
 print("Player bob achievements:", bob)
 print("Player charlie achievements:", charlie)
 
@@ -15,6 +15,9 @@ all_achievements = alice.union(bob).union(charlie)
 print("All unique achievements:", all_achievements)
 
 print("Total unique achievements:", len(all_achievements))
+
+common_all = alice.intersection(bob).intersection(charlie)
+print("\nCommon to all players:", common_all)
 
 alice_bob_shared = alice.intersection(bob)
 alice_charlie_shared = alice.intersection(charlie)
