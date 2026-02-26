@@ -9,7 +9,7 @@ print("Player alice achievements:", alice)
 print("Player bob achievements:", bob)
 print("Player charlie achievements:", charlie)
 
-print("=== Achievement Analytics ===")
+print("\n=== Achievement Analytics ===")
 
 all_achievements = alice.union(bob).union(charlie)
 print("All unique achievements:", all_achievements)
@@ -22,3 +22,11 @@ bob_charlie_shared = bob.intersection(charlie)
 
 shared = alice_bob_shared.union(alice_charlie_shared).union(bob_charlie_shared)
 rare = all_achievements.difference(shared)
+
+print("Rare achievements (1 player):", rare)
+
+print("\nAlice vs Bob common:", alice.intersection(bob))
+
+print("Alice unique:", alice.difference(bob))
+
+print("Bob unique:", bob.difference(alice))
