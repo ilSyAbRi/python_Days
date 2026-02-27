@@ -32,21 +32,32 @@ my_dic = {
         },
     },
     "catalog": {
-        "pixel_sword": {"type": "weapon", "value": 150, "rarity": "common"},
-        "quantum_ring": {"type": "accessory", "value": 500, "rarity": "rare"},
-        "health_byte": {"type": "consumable", "value": 25, "rarity": "common"},
-        "data_crystal": {"type": "material", "value": 1000, "rarity": "legendary"},
-        "code_bow": {"type": "weapon", "value": 200, "rarity": "uncommon"},
+        "pixel_sword": 
+        {"type": "weapon", "value": 150, "rarity": "common"},
+        "quantum_ring": 
+        {"type": "accessory", "value": 500, "rarity": "rare"},
+        "health_byte": 
+        {"type": "consumable", "value": 25, "rarity": "common"},
+        "data_crystal":
+        {"type": "material", "value": 1000, "rarity": "legendary"},
+        "code_bow": 
+        {"type": "weapon", "value": 200, "rarity": "uncommon"},
     },
 }
 
 
 def print_player_inventory(player_name):
 
-    player_name = "alice"
-
     inventory_value = 0
     inventory_item_count = 0
+
+    if player_name not in my_dic["players"]:
+        print("Player not found!")
+        return
+
+    if not my_dic["players"][player_name]["items"]:
+        print("Inventory is empty.")
+        return
 
     for item_name in my_dic["players"][player_name]["items"]:
 
@@ -61,49 +72,84 @@ def print_player_inventory(player_name):
         inventory_value = inventory_value + item_total_price
         inventory_item_count = inventory_item_count + item_quantity
 
-        print(item_name, "(", item_type, ",", item_rarity, "):",
-            item_quantity, "x @", item_unit_price, "=", item_total_price, "gold")
+        print(
+            item_name,
+            "(",
+            item_type,
+            ",",
+            item_rarity,
+            "):",
+            item_quantity,
+            "x @",
+            item_unit_price,
+            "=",
+            item_total_price,
+            "gold",
+        )
 
     print("\nInventory value:", inventory_value)
     print("Item count:", inventory_item_count)
 
 
 def transfer_item(giver_name, receiver_name, item_name, quantity_to_give):
-    
+
+    print(
+        f"\n=== Transaction: {giver_name.capitalize()} gives "
+        f"{receiver_name.capitalize()} {quantity_to_give} {item_name} ==="
+    )
+
+    if giver_name not in my_dic["players"]:
+        print("Transaction failed! Giver not found.")
+        return False
+
+    if receiver_name not in my_dic["players"]:
+        print("Transaction failed! Receiver not found.")
+        return False
+
+    if quantity_to_give <= 0:
+        print("Transaction failed! Quantity must be positive.")
+        return False
+
+    if item_name not in my_dic["players"][giver_name]["items"]:
+        print("Transaction failed! Item not found.")
+        return False
+
     if my_dic["players"][giver_name]["items"][item_name] < quantity_to_give:
-        print(f"\n=== Transaction: {giver_name.capitalize()} gives "
-              f"{receiver_name.capitalize()} {quantity_to_give} {item_name} ===")
-        print("Transaction failed!")
+        print("Transaction failed! Not enough items.")
         return False
 
     my_dic["players"][giver_name]["items"][item_name] = (
         my_dic["players"][giver_name]["items"][item_name] - quantity_to_give
     )
 
-    if item_name in my_dic["players"][receiver_name]["items"]:
-        my_dic["players"][receiver_name]["items"][item_name] = (
-            my_dic["players"][receiver_name]["items"]
-            [item_name] + quantity_to_give
-        )
+    my_dic["players"][receiver_name]["items"].update(
+        {item_name: my_dic["players"][receiver_name]["items"].get(item_name, 0)
+         + quantity_to_give}
+    )
 
-    else :
-        my_dic["players"][receiver_name]["items"][item_name] = quantity_to_give
-    print(f"\n=== Transaction: {giver_name.capitalize()} gives "
-    f"{receiver_name.capitalize()} {quantity_to_give} {item_name} ===")
     print("Transaction successful!")
     return True
+
 
 print("=== Player Inventory System ===")
 
 player_name = "alice"
-print(f"\n=== {player_name.capitalize}'s Inventory ===")
+print(f"\n=== {player_name.capitalize()}'s Inventory ===")
 print_player_inventory(player_name)
 
 result = transfer_item("alice", "bob", "health_byte", 1)
 
 if result:
     print("\n=== Updated Inventories ===")
-    print("Alice", "health_byte:", my_dic["players"]["alice"]["items"]["health_byte"])
-    print("Bob", "health_byte:", my_dic["players"]["bob"]["items"]["health_byte"])
+    print(
+        "Alice",
+        "health_byte:",
+        my_dic["players"]["alice"]["items"]["health_byte"],
+    )
+    print(
+        "Bob",
+        "health_byte:",
+        my_dic["players"]["bob"]["items"]["health_byte"],
+    )
 else:
     print("\n=== Inventories not updated ===")
