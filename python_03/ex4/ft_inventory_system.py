@@ -187,9 +187,7 @@ def inventory_analytics():
     print("\n=== Inventory Analytics ===")
     print("Most valuable player:", most_valuable_player, f"({max_value} gold)")
     print("Most items:", most_items_player, f"({max_items} items)")
-    print("Rarest items:")
-    for item in rarest_items:
-        print("-", item)
+    print("Rarest items:", ", ".join(rarest_items))
 
 
 print("=== Player Inventory System ===")
@@ -198,7 +196,7 @@ player_name = "alice"
 print(f"\n=== {player_name.capitalize()}'s Inventory ===")
 print_player_inventory(player_name)
 
-result = transfer_item("alice", "bob", "health_byte", 2)
+result = transfer_item("alice", "bob", "health_byte", 1)
 
 if result:
     print("\n=== Updated Inventories ===")
