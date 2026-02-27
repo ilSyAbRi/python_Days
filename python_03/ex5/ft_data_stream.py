@@ -1,4 +1,4 @@
-my_dic = [
+events_data = [
     {
         "id": 1,
         "player": "frank",
