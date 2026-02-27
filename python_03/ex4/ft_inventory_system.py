@@ -48,9 +48,6 @@ my_dic = {
 
 def print_player_inventory(player_name):
 
-    inventory_value = 0
-    inventory_item_count = 0
-
     player_data = my_dic["players"].get(player_name)
     if not player_data:
         print("Player not found!")
@@ -71,9 +68,6 @@ def print_player_inventory(player_name):
 
         item_total_price = item_quantity * item_unit_price
 
-        inventory_value = inventory_value + item_total_price
-        inventory_item_count = inventory_item_count + item_quantity
-
         print(
             item_name,
             "(",
@@ -89,8 +83,8 @@ def print_player_inventory(player_name):
             "gold",
         )
 
-    print("\nInventory value:", inventory_value)
-    print("Item count:", inventory_item_count)
+    print("\nInventory value:", player_data.get("total_value", 0))
+    print("Item count:", player_data.get("item_count", 0))
 
 
 def transfer_item(giver_name, receiver_name, item_name, quantity_to_give):
@@ -142,7 +136,7 @@ player_name = "alice"
 print(f"\n=== {player_name.capitalize()}'s Inventory ===")
 print_player_inventory(player_name)
 
-result = transfer_item("alice", "bob", "health_byte", 1)
+result = transfer_item("alice", "bob", "health_byte", 2)
 
 if result:
     print("\n=== Updated Inventories ===")
