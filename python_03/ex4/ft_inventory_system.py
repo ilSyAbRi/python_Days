@@ -126,8 +126,70 @@ def transfer_item(giver_name, receiver_name, item_name, quantity_to_give):
          + quantity_to_give}
     )
 
+    total = 0
+    count = 0
+    for name in my_dic["players"][giver_name]["items"]:
+        if name in my_dic["catalog"]:
+            qty = my_dic["players"][giver_name]["items"][name]
+            val = my_dic["catalog"][name]["value"]
+            total += qty * val
+            count += qty
+
+    my_dic["players"][giver_name].update({
+        "total_value": total,
+        "item_count": count
+    })
+
+    total = 0
+    count = 0
+    for name in my_dic["players"][receiver_name]["items"]:
+        if name in my_dic["catalog"]:
+            qty = my_dic["players"][receiver_name]["items"][name]
+            val = my_dic["catalog"][name]["value"]
+            total += qty * val
+            count += qty
+
+    my_dic["players"][receiver_name].update({
+        "total_value": total,
+        "item_count": count
+    })
+
     print("Transaction successful!")
     return True
+
+
+def inventory_analytics():
+    most_valuable_player = None
+    max_value = 0
+    most_items_player = None
+    max_items = 0
+    rarest_items = set()
+
+    for player_name in my_dic["players"]:
+        player_data = my_dic["players"][player_name]
+
+        total_value = player_data.get("total_value", 0)
+        if total_value > max_value:
+            max_value = total_value
+            most_valuable_player = player_name
+
+        item_count = player_data.get("item_count", 0)
+        if item_count > max_items:
+            max_items = item_count
+            most_items_player = player_name
+
+        for item_name in player_data.get("items", {}):
+            if item_name in my_dic["catalog"]:
+                rarity = my_dic["catalog"][item_name]["rarity"]
+                if rarity == "rare" or rarity == "legendary":
+                    rarest_items.add(item_name)
+
+    print("\n=== Inventory Analytics ===")
+    print("Most valuable player:", most_valuable_player, f"({max_value} gold)")
+    print("Most items:", most_items_player, f"({max_items} items)")
+    print("Rarest items:")
+    for item in rarest_items:
+        print("-", item)
 
 
 print("=== Player Inventory System ===")
@@ -152,3 +214,4 @@ if result:
     )
 else:
     print("\n=== Inventories not updated ===")
+inventory_analytics()
