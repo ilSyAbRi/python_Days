@@ -1,4 +1,4 @@
-[
+my_dic = [
     {
         "id": 1,
         "player": "frank",
