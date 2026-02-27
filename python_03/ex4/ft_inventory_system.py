@@ -46,6 +46,30 @@ my_dic = {
 }
 
 
+def print_len_el_categories(player_name):
+    player_data = my_dic["players"].get(player_name)
+    if not player_data:
+        print("Player not found!")
+        return
+
+    weapon_count = 0
+    consumable_count = 0
+    armor_count = 0
+
+    for name in player_data["items"]:
+        if name in my_dic["catalog"]:
+            t = my_dic["catalog"][name]["type"]
+            if t == "weapon":
+                weapon_count += player_data["items"][name]
+            elif t == "consumable":
+                consumable_count += player_data["items"][name]
+            elif t == "armor":
+                armor_count += player_data["items"][name]
+
+    print(f"Categories: weapon({weapon_count}), "
+        f"consumable({consumable_count}), armor({armor_count})")
+
+
 def print_player_inventory(player_name):
 
     player_data = my_dic["players"].get(player_name)
@@ -85,6 +109,7 @@ def print_player_inventory(player_name):
 
     print("\nInventory value:", player_data.get("total_value", 0))
     print("Item count:", player_data.get("item_count", 0))
+    print_len_el_categories(player_name)
 
 
 def transfer_item(giver_name, receiver_name, item_name, quantity_to_give):
