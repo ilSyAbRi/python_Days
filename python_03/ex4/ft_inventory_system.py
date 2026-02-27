@@ -40,6 +40,7 @@ my_dic = {
     },
 }
 
+
 def print_player_inventory(player_name):
 
     player_name = "alice"
@@ -66,8 +67,28 @@ def print_player_inventory(player_name):
     print("\nInventory value:", inventory_value)
     print("Item count:", inventory_item_count)
 
+
+def transfer_item(giver_name, receiver_name, item_name, quantity_to_give):
+      
+    my_dic["players"][giver_name]["items"][item_name] = (
+        my_dic["players"][giver_name]["items"][item_name] - quantity_to_give
+    )
+
+    if item_name in my_dic["players"][receiver_name]["items"]:
+        my_dic["players"][receiver_name]["items"][item_name] = (
+            my_dic["players"][receiver_name]["items"]
+            [item_name] + quantity_to_give
+        )
+    else :
+        my_dic["players"][receiver_name]["items"][item_name] = quantity_to_give
+    print(f"\n=== Transaction: {giver_name.capitalize()} gives "
+    f"{receiver_name.capitalize()} {quantity_to_give} {item_name} ===")
+    print("Transaction successful!")
+
 print("=== Player Inventory System ===")
 
-print("\n=== Alice's Inventory ===")
 player_name = "alice"
+print(f"\n=== {player_name.capitalize}'s Inventory ===")
 print_player_inventory(player_name)
+
+transfer_item("alice", "bob", "health_byte", 2)
