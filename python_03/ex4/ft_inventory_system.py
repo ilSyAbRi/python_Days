@@ -66,8 +66,10 @@ def print_len_el_categories(player_name):
             elif t == "armor":
                 armor_count += player_data["items"][name]
 
-    print(f"Categories: weapon({weapon_count}), "
-        f"consumable({consumable_count}), armor({armor_count})")
+    print(
+        f"Categories: weapon({weapon_count}), "
+        f"consumable({consumable_count}), armor({armor_count})"
+        )
 
 
 def print_player_inventory(player_name):
