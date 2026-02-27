@@ -69,7 +69,13 @@ def print_player_inventory(player_name):
 
 
 def transfer_item(giver_name, receiver_name, item_name, quantity_to_give):
-      
+    
+    if my_dic["players"][giver_name]["items"][item_name] < quantity_to_give:
+        print(f"\n=== Transaction: {giver_name.capitalize()} gives "
+              f"{receiver_name.capitalize()} {quantity_to_give} {item_name} ===")
+        print("Transaction failed!")
+        return False
+
     my_dic["players"][giver_name]["items"][item_name] = (
         my_dic["players"][giver_name]["items"][item_name] - quantity_to_give
     )
@@ -79,11 +85,13 @@ def transfer_item(giver_name, receiver_name, item_name, quantity_to_give):
             my_dic["players"][receiver_name]["items"]
             [item_name] + quantity_to_give
         )
+
     else :
         my_dic["players"][receiver_name]["items"][item_name] = quantity_to_give
     print(f"\n=== Transaction: {giver_name.capitalize()} gives "
     f"{receiver_name.capitalize()} {quantity_to_give} {item_name} ===")
     print("Transaction successful!")
+    return True
 
 print("=== Player Inventory System ===")
 
@@ -91,4 +99,11 @@ player_name = "alice"
 print(f"\n=== {player_name.capitalize}'s Inventory ===")
 print_player_inventory(player_name)
 
-transfer_item("alice", "bob", "health_byte", 2)
+result = transfer_item("alice", "bob", "health_byte", 1)
+
+if result:
+    print("\n=== Updated Inventories ===")
+    print("Alice", "health_byte:", my_dic["players"]["alice"]["items"]["health_byte"])
+    print("Bob", "health_byte:", my_dic["players"]["bob"]["items"]["health_byte"])
+else:
+    print("\n=== Inventories not updated ===")
