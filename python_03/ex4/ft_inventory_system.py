@@ -40,3 +40,27 @@ my_dic =
         "code_bow": {"type": "weapon", "value": 200, "rarity": "uncommon"},
     },
 }
+
+player_name = "alice"
+
+inventory_value = 0
+inventory_item_count = 0
+
+for item_name in my_dic["players"][player_name]["items"]:
+
+    item_quantity = my_dic["players"][player_name]["items"][item_name]
+
+    item_unit_price = my_dic["catalog"][item_name]["value"]
+    item_type = my_dic["catalog"][item_name]["type"]
+    item_rarity = my_dic["catalog"][item_name]["rarity"]
+
+    item_total_price = item_quantity * item_unit_price
+
+    inventory_value = inventory_value + item_total_price
+    inventory_item_count = inventory_item_count + item_quantity
+
+    print(item_name, "(", item_type, ",", item_rarity, "):",
+          item_quantity, "x @", item_unit_price, "=", item_total_price, "gold")
+
+print("Inventory value:", inventory_value)
+print("Item count:", inventory_item_count)
