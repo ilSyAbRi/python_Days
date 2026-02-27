@@ -217,26 +217,27 @@ def inventory_analytics():
     print("Rarest items:", ", ".join(rarest_items))
 
 
-print("=== Player Inventory System ===")
+if __name__ == "__main__":
+    print("=== Player Inventory System ===")
 
-player_name = "alice"
-print(f"\n=== {player_name.capitalize()}'s Inventory ===")
-print_player_inventory(player_name)
+    player_name = "alice"
+    print(f"\n=== {player_name.capitalize()}'s Inventory ===")
+    print_player_inventory(player_name)
 
-result = transfer_item("alice", "bob", "health_byte", 1)
+    result = transfer_item("alice", "bob", "health_byte", 1)
 
-if result:
-    print("\n=== Updated Inventories ===")
-    print(
-        "Alice",
-        "health_byte:",
-        my_dic["players"]["alice"]["items"]["health_byte"],
-    )
-    print(
-        "Bob",
-        "health_byte:",
-        my_dic["players"]["bob"]["items"]["health_byte"],
-    )
-else:
-    print("\n=== Inventories not updated ===")
-inventory_analytics()
+    if result:
+        print("\n=== Updated Inventories ===")
+        print(
+            "Alice",
+            "health_byte:",
+            my_dic["players"]["alice"]["items"]["health_byte"],
+        )
+        print(
+            "Bob",
+            "health_byte:",
+            my_dic["players"]["bob"]["items"]["health_byte"],
+        )
+    else:
+        print("\n=== Inventories not updated ===")
+    inventory_analytics()
