@@ -32,15 +32,15 @@ my_dic = {
         },
     },
     "catalog": {
-        "pixel_sword": 
+        "pixel_sword":
         {"type": "weapon", "value": 150, "rarity": "common"},
-        "quantum_ring": 
+        "quantum_ring":
         {"type": "accessory", "value": 500, "rarity": "rare"},
-        "health_byte": 
+        "health_byte":
         {"type": "consumable", "value": 25, "rarity": "common"},
         "data_crystal":
         {"type": "material", "value": 1000, "rarity": "legendary"},
-        "code_bow": 
+        "code_bow":
         {"type": "weapon", "value": 200, "rarity": "uncommon"},
     },
 }
@@ -51,11 +51,13 @@ def print_player_inventory(player_name):
     inventory_value = 0
     inventory_item_count = 0
 
-    if player_name not in my_dic["players"]:
+    player_data = my_dic["players"].get(player_name)
+    if not player_data:
         print("Player not found!")
         return
 
-    if not my_dic["players"][player_name]["items"]:
+    items = player_data.get("items")
+    if not items:
         print("Inventory is empty.")
         return
 
@@ -98,11 +100,13 @@ def transfer_item(giver_name, receiver_name, item_name, quantity_to_give):
         f"{receiver_name.capitalize()} {quantity_to_give} {item_name} ==="
     )
 
-    if giver_name not in my_dic["players"]:
+    giver_name_data = my_dic["players"].get(giver_name)
+    if not giver_name_data:
         print("Transaction failed! Giver not found.")
         return False
 
-    if receiver_name not in my_dic["players"]:
+    receiver_name_data = my_dic["players"].get(receiver_name)
+    if not receiver_name_data:
         print("Transaction failed! Receiver not found.")
         return False
 
@@ -110,11 +114,12 @@ def transfer_item(giver_name, receiver_name, item_name, quantity_to_give):
         print("Transaction failed! Quantity must be positive.")
         return False
 
-    if item_name not in my_dic["players"][giver_name]["items"]:
+    item_quantity = giver_name_data["items"].get(item_name, 0)
+    if item_quantity == 0:
         print("Transaction failed! Item not found.")
         return False
 
-    if my_dic["players"][giver_name]["items"][item_name] < quantity_to_give:
+    if item_quantity < quantity_to_give:
         print("Transaction failed! Not enough items.")
         return False
 
