@@ -421,3 +421,25 @@ if __name__ == "__main__":
     print("Level-up events:", level_up_events)
     print("Item found events:", item_found_events)
     print("Memory usage: Constant (streaming)")
+    print("\n=== Generator Demonstration ===")
+
+    nb_fib = 5
+    first = True
+    print(f"Fibonacci sequence (first {nb_fib}):", end=" ")
+
+    for num in fibonacci(nb_fib):
+        if first == False:
+            print(", ", end= "")
+        print(num,end = "")
+        first = True
+
+    print()
+    nb_prime = 3
+    first = True
+    print(f"Prime numbers (first {nb_prime}):", end=" ")
+
+    for num in primes(nb_prime):
+        if first == False:
+            print(", ",end = "")
+        print(num, end=", ")
+        first = True
