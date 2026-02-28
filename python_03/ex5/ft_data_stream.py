@@ -350,3 +350,74 @@ events_data = [
         "data": {"level": 7, "score_delta": -25, "zone": "pixel_zone_5"},
     },
 ]
+
+
+def fibonacci(n):
+    a = 0
+    b = 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+
+def is_prime(num):
+    if num < 2:
+        return False
+
+    i = 2
+    while i * i <= num:
+        if num % i == 0:
+            return False
+        i += 1
+    return True
+
+
+def primes(n):
+    count = 0
+    num = 2
+
+    while count < n:
+        if is_prime(num):
+            yield num
+            count += 1
+        num += 1
+
+
+def game_event_stream(events):
+    for event in events:
+        yield event
+
+
+if __name__ == "__main__":
+    print("=== Game Data Stream Processor ===")
+
+    stream = game_event_stream(events_data)
+
+    total_events = 0
+    high_level_player_events = 0
+    level_up_events = 0
+    item_found_events = 0
+
+    for event in stream:
+        total_events += 1
+
+        player_level = event["data"]["level"]
+
+        if player_level >= 10:
+            high_level_player_events += 1
+
+        if event["event_type"] == "level_up":
+            level_up_events += 1
+
+        if event["event_type"] == "item_found":
+            item_found_events += 1
+
+        print(f"Event {total_events}: Player {event['player']} "
+              f"({player_level}) {event['event_type']}")
+
+    print("\n=== Stream Analytics ===")
+    print("Total events processed:", total_events)
+    print("High-level player events (level 10+):", high_level_player_events)
+    print("Level-up events:", level_up_events)
+    print("Item found events:", item_found_events)
+    print("Memory usage: Constant (streaming)")
