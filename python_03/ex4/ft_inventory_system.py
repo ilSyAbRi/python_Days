@@ -185,15 +185,41 @@ def transfer_item(giver_name, receiver_name, item_name, quantity_to_give):
     return True
 
 
+def find_rarest_items():
+    rarity_rank = {"common": 1, "uncommon": 2, "rare": 3, "legendary": 4}
+
+    highest_rank = 0
+    rarest_items = []
+
+    for player in my_dic["players"]:
+        player_data = my_dic["players"][player]
+
+        for item_name in player_data.get("items", {}):
+            rarity = my_dic["catalog"][item_name]["rarity"]
+            rank = rarity_rank[rarity]
+
+            if rank > highest_rank:
+                highest_rank = rank
+                rarest_items.clear()
+                rarest_items.append(item_name)
+            elif rank == highest_rank:
+                rarest_items.append(item_name)
+
+    print("Rarest items:", ", ".join(rarest_items))
+
+
 def inventory_analytics():
     most_valuable_player = None
     max_value = 0
     most_items_player = None
     max_items = 0
-    rarest_items = set()
 
     for player_name in my_dic["players"]:
         player_data = my_dic["players"][player_name]
+
+        if not player_data or not player_data.get("items"):
+            print("No items for this player.")
+            return
 
         total_value = player_data.get("total_value", 0)
         if total_value > max_value:
@@ -205,16 +231,10 @@ def inventory_analytics():
             max_items = item_count
             most_items_player = player_name
 
-        for item_name in player_data.get("items", {}):
-            if item_name in my_dic["catalog"]:
-                rarity = my_dic["catalog"][item_name]["rarity"]
-                if rarity == "rare" or rarity == "legendary":
-                    rarest_items.add(item_name)
-
     print("\n=== Inventory Analytics ===")
     print("Most valuable player:", most_valuable_player, f"({max_value} gold)")
     print("Most items:", most_items_player, f"({max_items} items)")
-    print("Rarest items:", ", ".join(rarest_items))
+    find_rarest_items()
 
 
 if __name__ == "__main__":
