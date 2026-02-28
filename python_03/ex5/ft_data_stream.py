@@ -420,7 +420,7 @@ if __name__ == "__main__":
     print("High-level player events (level 10+):", high_level_player_events)
     print("Level-up events:", level_up_events)
     print("Item found events:", item_found_events)
-    
+
     print("\nMemory usage: Constant (streaming)")
     print("Processing time: 0.045 seconds")
 
@@ -428,21 +428,20 @@ if __name__ == "__main__":
 
     nb_fib = 10
     first = True
+
     print(f"Fibonacci sequence (first {nb_fib}):", end=" ")
-
     for num in fibonacci(nb_fib):
-        if first == False:
-            print(", ", end= "")
-        print(num,end = "")
+        if not first:
+            print(", ", end="")
+        print(num, end="")
         first = False
-
     print()
+
     nb_prime = 5
     first = True
     print(f"Prime numbers (first {nb_prime}):", end=" ")
-
     for num in primes(nb_prime):
-        if first == False:
-            print(", ",end = "")
+        if not first:
+            print(", ", end="")
         print(num, end="")
         first = False
