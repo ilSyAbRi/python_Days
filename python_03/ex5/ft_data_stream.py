@@ -431,7 +431,7 @@ if __name__ == "__main__":
         if first == False:
             print(", ", end= "")
         print(num,end = "")
-        first = True
+        first = False
 
     print()
     nb_prime = 3
@@ -441,5 +441,5 @@ if __name__ == "__main__":
     for num in primes(nb_prime):
         if first == False:
             print(", ",end = "")
-        print(num, end=", ")
-        first = True
+        print(num, end="")
+        first = False
