@@ -54,7 +54,8 @@ def print_len_el_categories(player_name):
 
     weapon_count = 0
     consumable_count = 0
-    armor_count = 0
+    accessory_count = 0
+    material_count = 0
 
     for name in player_data["items"]:
         if name in my_dic["catalog"]:
@@ -63,12 +64,16 @@ def print_len_el_categories(player_name):
                 weapon_count += player_data["items"][name]
             elif t == "consumable":
                 consumable_count += player_data["items"][name]
-            elif t == "armor":
-                armor_count += player_data["items"][name]
+            elif t == "accessory":
+                accessory_count += player_data["items"][name]
+            elif t == "material":
+                material_count += player_data["items"][name]
 
     print(
         f"Categories: weapon({weapon_count}), "
-        f"consumable({consumable_count}), armor({armor_count})"
+        f"consumable({consumable_count}), "
+        f"accessory({accessory_count}), "
+        f"material({material_count})"
         )
 
 
@@ -244,19 +249,22 @@ if __name__ == "__main__":
     print(f"\n=== {player_name.capitalize()}'s Inventory ===")
     print_player_inventory(player_name)
 
-    result = transfer_item("alice", "bob", "health_byte", 1)
-
+    receiver_name = "bob"
+    item_to_give = "health_byte"
+    result = transfer_item(player_name, receiver_name, item_to_give, 1)
     if result:
         print("\n=== Updated Inventories ===")
         print(
-            "Alice",
-            "health_byte:",
-            my_dic["players"]["alice"]["items"]["health_byte"],
+            player_name.capitalize(),
+            f"{item_to_give}:",
+            my_dic["players"][player_name]["items"][item_to_give],
         )
+        if my_dic["players"][player_name]["items"][item_to_give] == 0:
+            del my_dic["players"][player_name]["items"][item_to_give]
         print(
-            "Bob",
-            "health_byte:",
-            my_dic["players"]["bob"]["items"]["health_byte"],
+            receiver_name.capitalize(),
+            f"{item_to_give}:",
+            my_dic["players"][receiver_name]["items"][item_to_give],
         )
     else:
         print("\n=== Inventories not updated ===")
