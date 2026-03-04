@@ -145,4 +145,14 @@ total_player = sum(1 for player in my_dic["players"])
 print("Total players:", total_player)
 print("Total unique achievements:",len(unique_achievements))
 print("Average score:",sum(player_scores.values()) / total_player)
-print("Top performer:",scor for player_scores["players"] in my_dic["players"][player_name])
+
+top_score = 0
+top_player = ""
+for player_name in my_dic["players"]:
+    score = my_dic["players"][player_name]["total_score"]
+    if score > top_score:
+        top_score = score
+        top_player = player_name
+
+print("Top performer:", f"{top_player} ({top_score} points, "
+      f"{len(my_dic['players'][top_player]['achievements'])} achievements)")
