@@ -44,14 +44,22 @@ my_dic = {
         }
     },
     "sessions": [
-        {"player": "alice", "score": 400, "mode": "ranked", "completed": True},
-        {"player": "alice", "score": 300, "mode": "ranked", "completed": False},
-        {"player": "bob", "score": 200, "mode": "casual", "completed": True},
-        {"player": "bob", "score": 180, "mode": "casual", "completed": True},
-        {"player": "charlie", "score": 500, "mode": "competitive", "completed": True},
-        {"player": "charlie", "score": 450, "mode": "competitive", "completed": False},
-        {"player": "diana", "score": 150, "mode": "casual", "completed": True},
-        {"player": "diana", "score": 100, "mode": "casual", "completed": True}
+        {"player": "alice", "score": 400, "mode": "ranked",
+         "completed": True},
+        {"player": "alice", "score": 300, "mode": "ranked",
+         "completed": False},
+        {"player": "bob", "score": 200, "mode": "casual",
+         "completed": True},
+        {"player": "bob", "score": 180, "mode": "casual",
+         "completed": True},
+        {"player": "charlie", "score": 500, "mode": "competitive",
+         "completed": True},
+        {"player": "charlie", "score": 450, "mode": "competitive",
+         "completed": False},
+        {"player": "diana", "score": 150, "mode": "casual",
+         "completed": True},
+        {"player": "diana", "score": 100, "mode": "casual",
+         "completed": True}
     ],
     "game_modes": ["casual", "competitive", "ranked"]
 }
@@ -143,8 +151,8 @@ print("\n=== Combined Analysis ===")
 total_player = sum(1 for player in my_dic["players"])
 
 print("Total players:", total_player)
-print("Total unique achievements:",len(unique_achievements))
-print("Average score:",sum(player_scores.values()) / total_player)
+print("Total unique achievements:", len(unique_achievements))
+print("Average score:", sum(player_scores.values()) / total_player)
 
 top_score = 0
 top_player = ""
