@@ -352,35 +352,30 @@ events_data = [
 ]
 
 
-def fibonacci(n):
+def fib_generator():
     a = 0
     b = 1
-    for _ in range(n):
+    while True:
         yield a
         a, b = b, a + b
 
 
 def is_prime(num):
-    if num < 2:
-        return False
 
     i = 2
     while i * i <= num:
-        if num % i == 0:
+        if (num % i == 0):
             return False
-        i += 1
+        i = i + 1
     return True
 
 
-def primes(n):
-    count = 0
-    num = 2
-
-    while count < n:
-        if is_prime(num):
-            yield num
-            count += 1
-        num += 1
+def prime_generator():
+    count = 2
+    while True:
+        if is_prime(count):
+            yield count
+        count = count + 1
 
 
 def game_event_stream(events):
@@ -426,22 +421,24 @@ if __name__ == "__main__":
 
     print("\n=== Generator Demonstration ===")
 
-    nb_fib = 10
+    num_fib = 10
+    result_fib = fib_generator()
     first = True
 
-    print(f"Fibonacci sequence (first {nb_fib}):", end=" ")
-    for num in fibonacci(nb_fib):
+    print(f"Fibonacci sequence (first {num_fib}):", end="")
+    for _ in range(num_fib):
         if not first:
             print(", ", end="")
-        print(num, end="")
+        print(next(result_fib), end="")
         first = False
     print()
 
-    nb_prime = 5
+    num_prime = 5
+    result_prime = prime_generator()
     first = True
-    print(f"Prime numbers (first {nb_prime}):", end=" ")
-    for num in primes(nb_prime):
+    print(f"Prime numbers (first {num_prime}):", end="")
+    for _ in range(num_prime):
         if not first:
             print(", ", end="")
-        print(num, end="")
+        print(next(result_prime), end="")
         first = False
