@@ -1,8 +1,8 @@
 import sys
 
-print("\n=== CYBER ARCHIVES - COMMUNICATION SYSTEM ===")
+print("=== CYBER ARCHIVES - COMMUNICATION SYSTEM ===")
 
-archivist_id = input("Input Stream active. Enter archivist ID: ")
+archivist_id = input("\nInput Stream active. Enter archivist ID: ")
 
 status_report = input("Input Stream active. Enter status report: ")
 
