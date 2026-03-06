@@ -8,17 +8,18 @@ if __name__ == "__main__":
         print("Storage unit created successfully...")
 
         print("\nInscribing preservation data...")
-        file.write("{[}ENTRY 001{]} New quantum algorithm discovered\n")
-        file.write("{[}ENTRY 002{]} Efficiency increased by 347%\n")
-        file.write("{[}ENTRY 003{]} Archived by Data Archivist trainee\n")
-
+        a = "{[}ENTRY 001{]} New quantum algorithm discovered"
+        b = "{[}ENTRY 002{]} Efficiency increased by 347%"
+        c = "{[}ENTRY 003{]} Archived by Data Archivist trainee"
+        file.write(a)
+        file.write(b)
+        file.write(c)
         file.close()
+        print(a)
+        print(b)
+        print(c)
     except PermissionError:
         print("oh shit PermissionError error here we go again")
-
-    print("{[}ENTRY 001{]} New quantum algorithm discovered")
-    print("{[}ENTRY 002{]} Efficiency increased by 347%")
-    print("{[}ENTRY 003{]} Archived by Data Archivist trainee")
 
     print("\nData inscription complete. Storage unit sealed.")
     print("Archive 'new_discovery.txt' ready for long-term preservation.")
