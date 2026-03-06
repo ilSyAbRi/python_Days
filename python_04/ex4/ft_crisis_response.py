@@ -1,7 +1,7 @@
-def crisis_handler(file_name):
+def crisis_handler(file_name: str) -> None:
     try:
         with open(file_name, "r") as file:
-            data = file.read().strip()
+            data = file.read()
             print(f"SUCCESS: Archive recovered - ``{data}''")
             print("STATUS: Normal operations resumed")
 
