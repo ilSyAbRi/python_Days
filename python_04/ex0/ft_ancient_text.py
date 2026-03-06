@@ -11,4 +11,4 @@ if __name__ == "__main__":
     except FileNotFoundError:
         print("ERROR: Storage vault not found. Run data generator first.")
     except PermissionError:
-        print("oh shit PermissionError here we go again")
+        print("ERROR: Storage vault not found. Run data generator first.")
