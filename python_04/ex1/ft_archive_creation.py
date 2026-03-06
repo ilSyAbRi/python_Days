@@ -8,9 +8,9 @@ if __name__ == "__main__":
         print("Storage unit created successfully...")
 
         print("\nInscribing preservation data...")
-        a = "{[}ENTRY 001{]} New quantum algorithm discovered"
-        b = "{[}ENTRY 002{]} Efficiency increased by 347%"
-        c = "{[}ENTRY 003{]} Archived by Data Archivist trainee"
+        a = "{[}ENTRY 001{]} New quantum algorithm discovered\n"
+        b = "{[}ENTRY 002{]} Efficiency increased by 347%\n"
+        c = "{[}ENTRY 003{]} Archived by Data Archivist trainee\n"
         file.write(a)
         file.write(b)
         file.write(c)
