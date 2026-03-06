@@ -1,17 +1,19 @@
 import sys
 
-print("=== CYBER ARCHIVES - COMMUNICATION SYSTEM ===")
+if __name__ == "__main__":
 
-archivist_id = input("\nInput Stream active. Enter archivist ID: ")
+    print("=== CYBER ARCHIVES - COMMUNICATION SYSTEM ===")
 
-status_report = input("Input Stream active. Enter status report: ")
+    archivist_id = input("\nInput Stream active. Enter archivist ID: ")
 
-print(f"\n{{[}}STANDARD{{]}} Archive status"
-      f"from {archivist_id}: {status_report}")
+    status_report = input("Input Stream active. Enter status report: ")
 
-sys.stderr.write("{[}ALERT{]} System diagnostic: "
-                 "Communication channels verified\n")
+    print(f"\n{{[}}STANDARD{{]}} Archive status"
+          f"from {archivist_id}: {status_report}")
 
-print("{[}STANDARD{]} Data transmission complete")
+    sys.stderr.write("{[}ALERT{]} System diagnostic: "
+                     "Communication channels verified\n")
 
-print("\nThree-channel communication test successful.")
+    print("{[}STANDARD{]} Data transmission complete")
+
+    print("\nThree-channel communication test successful.")
