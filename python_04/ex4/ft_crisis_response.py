@@ -14,20 +14,20 @@ def crisis_handler(file_name):
         print("STATUS: Crisis handled, security maintained")
 
     except Exception:
-        print("RESPONSE: Unexpected system anomaly detected")
+        print("\nRESPONSE: Unexpected system anomaly detected")
         print("STATUS: Crisis handled, system stabilized")
 
 
 if __name__ == "__main__":
     print("=== CYBER ARCHIVES - CRISIS RESPONSE SYSTEM ===")
 
-    print("CRISIS ALERT: Attempting access to 'lost_archive.txt'...")
+    print("\nCRISIS ALERT: Attempting access to 'lost_archive.txt'...")
     crisis_handler("lost_archive.txt")
 
-    print("CRISIS ALERT: Attempting access to 'classified_vault.txt'...")
+    print("\nCRISIS ALERT: Attempting access to 'classified_vault.txt'...")
     crisis_handler("classified_vault.txt")
 
-    print("ROUTINE ACCESS: Attempting access to 'standard_archive.txt'...")
+    print("\nROUTINE ACCESS: Attempting access to 'standard_archive.txt'...")
     crisis_handler("standard_archive.txt")
 
-    print("All crisis scenarios handled successfully. Archives secure.")
+    print("\nAll crisis scenarios handled successfully. Archives secure.")
