@@ -8,7 +8,7 @@ if __name__ == "__main__":
 
     status_report = input("Input Stream active. Enter status report: ")
 
-    print(f"\n[STANDARD] Archive status"
+    print(f"\n[STANDARD] Archive status "
           f"from {archivist_id}: {status_report}")
 
     sys.stderr.write("[ALERT] System diagnostic: "
