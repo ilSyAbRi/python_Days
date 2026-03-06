@@ -13,7 +13,7 @@ if __name__ == "__main__":
         file.write("{[}ENTRY 003{]} Archived by Data Archivist trainee\n")
 
         file.close()
-    except : PermissionError
+    except PermissionError:
         print("oh shit PermissionError error here we go again")
 
     print("{[}ENTRY 001{]} New quantum algorithm discovered")
