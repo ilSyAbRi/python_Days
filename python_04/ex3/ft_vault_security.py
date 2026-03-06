@@ -6,8 +6,8 @@ if __name__ == "__main__":
 
     try:
         with (
-        open("classified_data.txt", "r") as vault1,
-        open("security_protocols.txt", "r") as vault2
+            open("classified_data.txt", "r") as vault1,
+            open("security_protocols.txt", "r") as vault2
         ):
             content1 = vault1.read()
             content2 = vault2.read()
