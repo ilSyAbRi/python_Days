@@ -21,4 +21,4 @@ if __name__ == "__main__":
         print("\nData inscription complete. Storage unit sealed.")
         print("Archive 'new_discovery.txt' ready for long-term preservation.")
     except PermissionError:
-        print("oh shit PermissionError error here we go again") 
+        print("oh shit PermissionError error here we go again")
