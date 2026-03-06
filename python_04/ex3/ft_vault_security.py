@@ -16,6 +16,7 @@ if __name__ == "__main__":
             print("\nSECURE PRESERVATION:")
             print(content2)
             print("Vault automatically sealed upon completion")
+            print("\nAll vault operations completed with maximum security.")
     except FileNotFoundError:
         print("\n{[}CLASSIFIED{]} Vault missing! Extraction failed\n")
     except PermissionError:
