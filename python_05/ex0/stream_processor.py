@@ -1,13 +1,16 @@
 from abc import ABC, abstractmethod
-from typing import Any, List
+from typing import Any
+
 
 class DataProcessor(ABC):
     @abstractmethod
     def process(self, data: Any) -> str:
         pass
+
     @abstractmethod
     def validate(self, data: Any) -> bool:
         pass
+
     def format_output(self, result: str) -> str:
         return f"Output: {result}"
 
@@ -45,12 +48,12 @@ class NumericProcessor(DataProcessor):
 
 class TextProcessor(DataProcessor):
     def validate(self, data: Any) -> bool:
-        return type(data) == str
-    
-    def process(self, data:Any) -> str:
+        return type(data) is str
+
+    def process(self, data: Any) -> str:
         if not self.validate(data):
             return self.format_output("Error: Invalid text data")
-        
+
         num_chars = len(data)
         num_words = len(data.split())
 
@@ -70,7 +73,7 @@ if __name__ == "__main__":
     processor = NumericProcessor()
     data = [1, 2, 3, 4, 5]
 
-    print("Processing data:",data)
+    print("Processing data:", data)
     print(processor.process(data))
 
     print("\nInitializing Text Processor...")
