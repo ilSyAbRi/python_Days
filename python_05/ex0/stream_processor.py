@@ -34,11 +34,11 @@ class NumericProcessor(DataProcessor):
         else:
             avg = total / count
 
-            result = (
-                    f"Validation: Numeric data verified"
-                    f"\nProcessed {count} numeric values,"
-                    f" sum={total}, avg={avg}"
-            )
+        result = (
+                f"Validation: Numeric data verified"
+                f"\nProcessed {count} numeric values,"
+                f" sum={total}, avg={avg}"
+        )
 
         return self.format_output(result)
 
