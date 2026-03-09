@@ -18,14 +18,24 @@ class DataProcessor(ABC):
 class NumericProcessor(DataProcessor):
 
     def validate(self, data: Any) -> bool:
+
+        if type(data) in (int, float):
+            return True
+
         try:
             for value in data:
-                value + 0
-            return True
-        except Exception:
+                if type(value) not in (int, float):
+                    return False
+        except TypeError:
             return False
 
+        return True
+
     def process(self, data: Any) -> str:
+        
+        if type(data) in (int, float):
+            data = [data]
+
         total = sum(data)
         count = len(data)
 
