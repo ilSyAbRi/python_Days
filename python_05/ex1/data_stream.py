@@ -152,6 +152,29 @@ def main():
 
     print(event_stream.process_batch(event_data))
 
+    print("\n=== Polymorphic Stream Processing ===")
+    print("Processing mixed stream types through unified interface...")
+    
+    print("\nBatch 1 Results:")
+    streams: List[DataStream] = [
+        SensorStream("SENSOR_002"),
+        TransactionStream("TRANS_002"),
+        EventStream("EVENT_002")
+    ]
+
+    batches: List[Any] = [
+        {"temp": 20.0, "humidity": 70},
+        [("buy", 50), ("sell", 120), ("sell", 40), ("buy", 10)],
+        ["login", "login", "error"]
+    ]
+
+    for stream, batch in zip(streams, batches):
+        try:
+            result = stream.process_batch(batch)
+            print(result)
+        except Exception as e:
+            print("Batch processing failed:", e)
+
 
 if __name__ == "__main__":
     print("=== CODE NEXUS - POLYMORPHIC STREAM SYSTEM ===")
