@@ -11,7 +11,9 @@ class DataStream(ABC):
     def process_batch(self, data_batch: List[Any]) -> str:
         pass
 
-    def filter_data(self, data_batch: List[Any], criteria: Optional[str] = None) -> List[Any]:
+    def filter_data(
+            self, data_batch: List[Any], criteria: Optional[str] = None
+            ) -> List[Any]:
         if criteria is None:
             return data_batch
         return [x for x in data_batch if criteria in str(x)]
@@ -34,7 +36,10 @@ class SensorStream(DataStream):
             readings: int = len(data_batch)
             temp: float = data_batch["temp"]
 
-            return f"Sensor analysis: {readings} readings processed, avg temp: {temp:.1f}°C"
+            return (
+                f"Sensor analysis: {readings} readings processed, "
+                f"avg temp: {temp:.1f}°C"
+            )
 
         except (TypeError, KeyError) as e:
             return f"Sensor processing error: {e}"
@@ -126,9 +131,10 @@ def main():
     print("Processing sensor batch:", data_batch)
     print(sensor.process_batch(data_batch))
 
-
     print("\nInitializing Transaction Stream...")
-    transaction_data: List[Tuple[str, int]] = [("buy", 100), ("sell", 150), ("buy", 75)]
+    transaction_data: List[Tuple[str, int]] = [
+        ("buy", 100), ("sell", 150), ("buy", 75)
+        ]
 
     transaction_stream = TransactionStream("TRANS_001")
 
@@ -137,7 +143,6 @@ def main():
 
     print("Processing transaction batch:", transaction_data)
     print(transaction_stream.process_batch(transaction_data))
-
 
     print("\nInitializing Event Stream...")
 
@@ -150,7 +155,6 @@ def main():
 
     print("Processing event batch:", event_data)
     print(event_stream.process_batch(event_data))
-
 
     print("\n=== Polymorphic Stream Processing ===")
     print("Processing mixed stream types through unified interface...")
@@ -176,7 +180,6 @@ def main():
         except Exception as e:
             print("Batch processing failed:", e)
 
-
     print("\nStream filtering active: High-priority data only")
 
     sensor_alerts = [
@@ -192,12 +195,15 @@ def main():
     ]
 
     filtered_sensor = sensor.filter_data(sensor_alerts, "CRITICAL")
-    filtered_transactions = transaction_stream.filter_data(transactions, "5000")
+    filtered_transactions = transaction_stream.filter_data(
+        transactions, "5000"
+        )
 
     sensor_count = len(filtered_sensor)
     transaction_count = len(filtered_transactions)
 
-    print(f"Filtered results: {sensor_count} critical sensor alerts, {transaction_count} large transaction")
+    print(f"Filtered results: {sensor_count} critical sensor alerts, "
+          f"{transaction_count} large transaction")
 
 
 if __name__ == "__main__":
