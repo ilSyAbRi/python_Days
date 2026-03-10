@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
-from typing import Any, List, Dict, Union, Optional
+from typing import Any, List, Dict, Union, Optional, Tuple
 
 
 class DataStream(ABC):
 
     def __init__(self, stream_id: str):
-        self.stream_id = stream_id
+        self.stream_id: str = stream_id
 
     @abstractmethod
     def process_batch(self, data_batch: List[Any]) -> str:
@@ -22,17 +22,24 @@ class DataStream(ABC):
 
 class SensorStream(DataStream):
 
-
     def __init__(self, stream_id: str):
         super().__init__(stream_id)
-        self.stream_type = "Environmental Data"
+        self.stream_type: str = "Environmental Data"
 
-    def process_batch(self, data_batch):
-        readings = len(data_batch)
-        temp = data_batch["temp"]
-        return f"Sensor analysis: {readings} readings processed, avg temp: {temp:.1f}°C"
+    def process_batch(self, data_batch: Dict[str, float]) -> str:
+        try:
+            if not isinstance(data_batch, dict):
+                raise TypeError("Sensor data must be a dictionary")
 
-    def get_stats(self):
+            readings: int = len(data_batch)
+            temp: float = data_batch["temp"]
+
+            return f"Sensor analysis: {readings} readings processed, avg temp: {temp:.1f}°C"
+
+        except (TypeError, KeyError) as e:
+            return f"Sensor processing error: {e}"
+
+    def get_stats(self) -> Dict[str, str]:
         return {
             "stream_id": self.stream_id,
             "stream_type": self.stream_type
@@ -43,25 +50,32 @@ class TransactionStream(DataStream):
 
     def __init__(self, stream_id: str):
         super().__init__(stream_id)
-        self.stream_type = "Financial Data"
+        self.stream_type: str = "Financial Data"
 
-    def process_batch(self, data_batch):
-        buy_total = 0
-        sell_total = 0
+    def process_batch(self, data_batch: List[Tuple[str, int]]) -> str:
+        try:
+            if not isinstance(data_batch, list):
+                raise TypeError("Transaction batch must be a list")
 
-        for op, value in data_batch:
-            if op == "buy":
-                buy_total += value
-            elif op == "sell":
-                sell_total += value
+            buy_total: int = 0
+            sell_total: int = 0
 
-        net_flow = sell_total - buy_total
-        return (
+            for op, value in data_batch:
+                if op == "buy":
+                    buy_total += value
+                elif op == "sell":
+                    sell_total += value
+
+            net_flow: int = buy_total - sell_total
+            return (
                 f"Transaction analysis: {len(data_batch)} "
                 f"operations, net flow: {net_flow:+} units"
             )
 
-    def get_stats(self):
+        except TypeError as e:
+            return f"Transaction processing error: {e}"
+
+    def get_stats(self) -> Dict[str, str]:
         return {
             "stream_id": self.stream_id,
             "stream_type": self.stream_type
@@ -72,15 +86,22 @@ class EventStream(DataStream):
 
     def __init__(self, stream_id: str):
         super().__init__(stream_id)
-        self.stream_type = "System Events"
+        self.stream_type: str = "System Events"
 
-    def process_batch(self, data_batch):
-        events = len(data_batch)
-        errors = data_batch.count("error")
+    def process_batch(self, data_batch: List[str]) -> str:
+        try:
+            if not isinstance(data_batch, list):
+                raise TypeError("Event batch must be a list")
 
-        return f"Event analysis: {events} events, {errors} error detected"
+            events: int = len(data_batch)
+            errors: int = data_batch.count("error")
 
-    def get_stats(self):
+            return f"Event analysis: {events} events, {errors} error detected"
+
+        except TypeError as e:
+            return f"Event processing error: {e}"
+
+    def get_stats(self) -> Dict[str, str]:
         return {
             "stream_id": self.stream_id,
             "stream_type": self.stream_type
@@ -88,11 +109,11 @@ class EventStream(DataStream):
 
 
 def main():
-    
+
     print("\nInitializing Sensor Stream...")
     sensor = SensorStream("SENSOR_001")
 
-    data_batch = {
+    data_batch: Dict[str, float] = {
         "temp": 22.5,
         "humidity": 65,
         "pressure": 1013
@@ -105,9 +126,9 @@ def main():
 
     print(sensor.process_batch(data_batch))
 
-    
+
     print("\nInitializing Transaction Stream...")
-    transaction_data = [("buy", 100), ("sell", 150), ("buy", 75)]
+    transaction_data: List[Tuple[str, int]] = [("buy", 100), ("sell", 150), ("buy", 75)]
 
     transaction_stream = TransactionStream("TRANS_001")
 
@@ -117,9 +138,10 @@ def main():
     print("Processing transaction batch:", transaction_data)
     print(transaction_stream.process_batch(transaction_data))
 
+
     print("\nInitializing Event Stream...")
 
-    event_data = ["login", "error", "logout"]
+    event_data: List[str] = ["login", "error", "logout"]
 
     event_stream = EventStream("EVENT_001")
 
