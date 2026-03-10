@@ -103,7 +103,6 @@ class EventStream(DataStream):
         }
 
 
-# New StreamProcessor class
 class StreamProcessor:
 
     def __init__(self, streams: List[DataStream]) -> None:
