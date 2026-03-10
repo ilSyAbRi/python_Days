@@ -3,15 +3,18 @@ from typing import Any, List, Dict, Union, Optional, Tuple
 
 
 class DataStream(ABC):
-
-    def __init__(self, stream_id: str):
+    def __init__(self, stream_id: str) -> None:
         self.stream_id: str = stream_id
 
     @abstractmethod
-    def process_batch(self, data_batch: List[Any]) -> str:
-        pass
+    def process_batch(self, data_batch: Any) -> str:
+        ...
 
-    def filter_data(self, data_batch: List[Any], criteria: Optional[str] = None) -> List[Any]:
+    def filter_data(
+        self,
+        data_batch: List[Any],
+        criteria: Optional[str] = None
+    ) -> List[Any]:
         if criteria is None:
             return data_batch
         return [x for x in data_batch if criteria in str(x)]
@@ -21,8 +24,7 @@ class DataStream(ABC):
 
 
 class SensorStream(DataStream):
-
-    def __init__(self, stream_id: str):
+    def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
         self.stream_type: str = "Environmental Data"
 
@@ -31,28 +33,23 @@ class SensorStream(DataStream):
             if not isinstance(data_batch, dict):
                 raise TypeError("Sensor data must be a dictionary")
 
-            for key, value in data_batch.items():
-                if not isinstance(value, (int, float)):
-                    raise TypeError("Sensor values must be numeric")
-
             readings: int = len(data_batch)
             temp: float = data_batch["temp"]
 
-            return f"Sensor analysis: {readings} readings processed, avg temp: {temp:.1f}°C"
+            return (
+                f"Sensor analysis: {readings} readings processed, "
+                f"avg temp: {temp:.1f}°C"
+                )
 
         except (TypeError, KeyError) as e:
             return f"Sensor processing error: {e}"
 
     def get_stats(self) -> Dict[str, str]:
-        return {
-            "stream_id": self.stream_id,
-            "stream_type": self.stream_type
-        }
+        return {"stream_id": self.stream_id, "stream_type": self.stream_type}
 
 
 class TransactionStream(DataStream):
-
-    def __init__(self, stream_id: str):
+    def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
         self.stream_type: str = "Financial Data"
 
@@ -64,40 +61,29 @@ class TransactionStream(DataStream):
             buy_total: int = 0
             sell_total: int = 0
 
-            for item in data_batch:
-                if not isinstance(item, tuple) or len(item) != 2:
-                    raise TypeError("Transaction must be a tuple (operation, value)")
-
-                op, value = item
-
-                if not isinstance(op, str) or not isinstance(value, int):
-                    raise TypeError("Transaction types must be (str, int)")
-
+            for op, value in data_batch:
                 if op == "buy":
                     buy_total += value
                 elif op == "sell":
                     sell_total += value
+                else:
+                    raise ValueError(f"Invalid operation type: {op}")
 
             net_flow: int = buy_total - sell_total
-
             return (
                 f"Transaction analysis: {len(data_batch)} "
                 f"operations, net flow: {net_flow:+} units"
             )
 
-        except TypeError as e:
+        except (TypeError, ValueError) as e:
             return f"Transaction processing error: {e}"
 
     def get_stats(self) -> Dict[str, str]:
-        return {
-            "stream_id": self.stream_id,
-            "stream_type": self.stream_type
-        }
+        return {"stream_id": self.stream_id, "stream_type": self.stream_type}
 
 
 class EventStream(DataStream):
-
-    def __init__(self, stream_id: str):
+    def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
         self.stream_type: str = "System Events"
 
@@ -105,10 +91,6 @@ class EventStream(DataStream):
         try:
             if not isinstance(data_batch, list):
                 raise TypeError("Event batch must be a list")
-
-            for event in data_batch:
-                if not isinstance(event, str):
-                    raise TypeError("Each event must be a string")
 
             events: int = len(data_batch)
             errors: int = data_batch.count("error")
@@ -119,60 +101,59 @@ class EventStream(DataStream):
             return f"Event processing error: {e}"
 
     def get_stats(self) -> Dict[str, str]:
-        return {
-            "stream_id": self.stream_id,
-            "stream_type": self.stream_type
-        }
+        return {"stream_id": self.stream_id, "stream_type": self.stream_type}
 
 
-def main():
+class StreamProcessor:
+    def __init__(self, streams: List[DataStream]) -> None:
+        self.streams: List[DataStream] = streams
+
+    def process_all(self, batches: List[Any]) -> None:
+        for stream, batch in zip(self.streams, batches):
+            try:
+                result: str = stream.process_batch(batch)
+                print(result)
+            except Exception as e:
+                print(f"Batch processing failed for {stream.stream_id}: {e}")
+
+
+def main() -> None:
+    print("=== CODE NEXUS - POLYMORPHIC STREAM SYSTEM ===")
 
     print("\nInitializing Sensor Stream...")
     sensor = SensorStream("SENSOR_001")
-
     data_batch: Dict[str, float] = {
-        "temp": 22.5,
-        "humidity": 65,
-        "pressure": 1013
-    }
-
+            "temp": 22.5,
+            "humidity": 65,
+            "pressure": 1013
+            }
     stats = sensor.get_stats()
     print(f"Stream ID: {stats['stream_id']}, Type: {stats['stream_type']}")
-
     print("Processing sensor batch:", data_batch)
-
     print(sensor.process_batch(data_batch))
 
-
     print("\nInitializing Transaction Stream...")
-    transaction_data: List[Tuple[str, int]] = [("buy", 100), ("sell", 150), ("buy", 75)]
-
+    transaction_data: List[Tuple[str, int]] = [
+        ("buy", 100),
+        ("sell", 150),
+        ("buy", 75)
+    ]
     transaction_stream = TransactionStream("TRANS_001")
-
     stats = transaction_stream.get_stats()
     print(f"Stream ID: {stats['stream_id']}, Type: {stats['stream_type']}")
-
     print("Processing transaction batch:", transaction_data)
     print(transaction_stream.process_batch(transaction_data))
 
-
     print("\nInitializing Event Stream...")
-
     event_data: List[str] = ["login", "error", "logout"]
-
     event_stream = EventStream("EVENT_001")
-
     stats = event_stream.get_stats()
     print(f"Stream ID: {stats['stream_id']}, Type: {stats['stream_type']}")
-
     print("Processing event batch:", event_data)
-
     print(event_stream.process_batch(event_data))
-
 
     print("\n=== Polymorphic Stream Processing ===")
     print("Processing mixed stream types through unified interface...")
-
     print("\nBatch 1 Results:")
 
     streams: List[DataStream] = [
@@ -187,14 +168,17 @@ def main():
         ["login", "login", "error"]
     ]
 
-    for stream, batch in zip(streams, batches):
-        try:
-            result = stream.process_batch(batch)
-            print(result)
-        except Exception as e:
-            print("Batch processing failed:", e)
+    processor = StreamProcessor(streams)
+    processor.process_all(batches)
+
+    filtered_sensor = sensor.filter_data(sensor_alerts, "CRITICAL")
+    filtered_transactions = transaction_stream.filter_data(
+            transactions, "5000"
+            )
+
+    print(f"Filtered results: {len(filtered_sensor)} critical sensor alerts, "
+          f"{len(filtered_transactions)} large transaction")
 
 
 if __name__ == "__main__":
-    print("=== CODE NEXUS - POLYMORPHIC STREAM SYSTEM ===")
     main()
