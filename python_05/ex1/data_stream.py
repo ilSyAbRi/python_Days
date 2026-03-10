@@ -31,6 +31,10 @@ class SensorStream(DataStream):
             if not isinstance(data_batch, dict):
                 raise TypeError("Sensor data must be a dictionary")
 
+            for key, value in data_batch.items():
+                if not isinstance(value, (int, float)):
+                    raise TypeError("Sensor values must be numeric")
+
             readings: int = len(data_batch)
             temp: float = data_batch["temp"]
 
@@ -60,13 +64,22 @@ class TransactionStream(DataStream):
             buy_total: int = 0
             sell_total: int = 0
 
-            for op, value in data_batch:
+            for item in data_batch:
+                if not isinstance(item, tuple) or len(item) != 2:
+                    raise TypeError("Transaction must be a tuple (operation, value)")
+
+                op, value = item
+
+                if not isinstance(op, str) or not isinstance(value, int):
+                    raise TypeError("Transaction types must be (str, int)")
+
                 if op == "buy":
                     buy_total += value
                 elif op == "sell":
                     sell_total += value
 
             net_flow: int = buy_total - sell_total
+
             return (
                 f"Transaction analysis: {len(data_batch)} "
                 f"operations, net flow: {net_flow:+} units"
@@ -92,6 +105,10 @@ class EventStream(DataStream):
         try:
             if not isinstance(data_batch, list):
                 raise TypeError("Event batch must be a list")
+
+            for event in data_batch:
+                if not isinstance(event, str):
+                    raise TypeError("Each event must be a string")
 
             events: int = len(data_batch)
             errors: int = data_batch.count("error")
@@ -152,10 +169,12 @@ def main():
 
     print(event_stream.process_batch(event_data))
 
+
     print("\n=== Polymorphic Stream Processing ===")
     print("Processing mixed stream types through unified interface...")
-    
+
     print("\nBatch 1 Results:")
+
     streams: List[DataStream] = [
         SensorStream("SENSOR_002"),
         TransactionStream("TRANS_002"),
