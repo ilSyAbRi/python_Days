@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Any, Protocol, Union, List
+from collections import defaultdict
 
 class ProcessingStage(Protocol):
     def process(self, data: Any) -> Any:
