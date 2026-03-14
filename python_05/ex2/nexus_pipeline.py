@@ -2,23 +2,47 @@ from abc import ABC, abstractmethod
 from typing import Any, Protocol, Union, List
 from collections import defaultdict
 
+
 class ProcessingStage(Protocol):
-    def process(self, data: Any) -> Any:
-        ...
+    def process(self, data: Any) -> Any: ...
 
 
 class InputStage:
     def process(self, data: Any) -> Any:
-        pass
+    print("Transform: Input validation and parsing")
+
+    try:
+        if not isinstance(data, dict):
+            raise TypeError("Expected dict for JSON input")
+
+        required_keys = ["sensor", "value", "unit"]
+            for key in required_keys:
+                if key not in data:
+                    raise KeyError(f"Missing required key: {key}")
+
+        if not isinstance(data["sensor"], str):
+            raise TypeError("'sensor' must be a string")
+        if not isinstance(data["value"], (int, float)):
+            raise TypeError("'value' must be a number")
+        if not isinstance(data["unit"], str):
+            raise TypeError("'unit' must be a string")
+
+        except Exception as e:
+            print(f"Error detected in InputStage: {e}")
+            print("Recovery: passing data as-is to next stage")
+
+        return data
 
 
 class TransformStage:
     def process(self, data: Any) -> Any:
         pass
 
+
 class OutputStage:
     def process(self, data: Any) -> Any:
         pass
+
 
 class ProcessingPipeline(ABC):
 
@@ -28,10 +52,12 @@ class ProcessingPipeline(ABC):
         self.stats = defaultdict(int)
 
     def add_stage(self, stage: ProcessingStage):
-        pass
+        self.stages.append(stage)
 
     def run_stages(self, data: Any) -> Any:
-        pass
+        for stage in self.stages:
+            data = stage.process(data)
+        return data
 
     @abstractmethod
     def process(self, data: Any) -> Union[str, Any]:
@@ -41,19 +67,28 @@ class ProcessingPipeline(ABC):
 class JSONAdapter(ProcessingPipeline):
 
     def process(self, data: Any) -> Union[str, Any]:
-        pass
+        print("Processing JSON data through pipeline...")
+        print("Input:", data)
+        result = self.run_stages(data):
+        return result
 
 
 class CSVAdapter(ProcessingPipeline):
 
     def process(self, data: Any) -> Union[str, Any]:
-        pass
+        print("Processing CSV data through same pipeline...")
+        print("Input:", data)
+        result = self.run_stages(data):
+        return result
 
 
 class StreamAdapter(ProcessingPipeline):
 
     def process(self, data: Any) -> Union[str, Any]:
-        pass
+        print("Processing Stream data through same pipeline...")
+        print("Input:", data)
+        result = self.run_stages(data):
+        return result
 
 
 class NexusManager:
@@ -71,7 +106,7 @@ class NexusManager:
         pass
 
 
-if  __name__ == "__main__":
+if __name__ == "__main__":
     print("=== CODE NEXUS - ENTERPRISE PIPELINE SYSTEM ===")
     print("Initializing Nexus Manager...")
     print("Pipeline capacity: 1000 streams/second")
