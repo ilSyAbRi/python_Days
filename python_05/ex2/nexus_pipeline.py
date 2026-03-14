@@ -20,29 +20,46 @@ class InputStage:
                 if key not in data:
                     raise KeyError(f"Missing required key: {key}")
 
-        if not isinstance(data["sensor"], str):
-            raise TypeError("'sensor' must be a string")
-        if not isinstance(data["value"], (int, float)):
-            raise TypeError("'value' must be a number")
-        if not isinstance(data["unit"], str):
-            raise TypeError("'unit' must be a string")
+            if not isinstance(data["sensor"], str):
+                raise TypeError("'sensor' must be a string")
+            if not isinstance(data["value"], (int, float)):
+                raise TypeError("'value' must be a number")
+            if not isinstance(data["unit"], str):
+                raise TypeError("'unit' must be a string")
 
-        except Exception as e:
-            print(f"Error detected in InputStage: {e}")
-            print("Recovery: passing data as-is to next stage")
+            except Exception as e:
+                print(f"Error detected in InputStage: {e}")
+                print("Recovery: passing data as-is to next stage")
 
         return data
 
 
 class TransformStage:
     def process(self, data: Any) -> Any:
-        pass
+        print("Transform: Enriched with metadata and validation")
 
+        if isinstance(data,dict):
+            return {
+                "sensor": data["sensor"],
+                "value": data["value"],
+                "unit": data["unit"]
+            }
+        elif isinstance(data,str):
+            return {"rows":data.split(",")}
+        elif isinstance(data,list):
+            return {"readings": data}
+    return data
 
 class OutputStage:
     def process(self, data: Any) -> Any:
-        pass
-
+        if "sensor" in data:
+            print(f"Output: Processed {data['sensor']} reading: "
+                  f"{data['value']}{data['unit']} (Normal range)")
+        elif "rows" in data:
+            avg = sum(data["readings"]) / len(data["readings"])
+            print(f"Output: Stream summary: "
+                  f"{len(data['readings'])} readings, avg: {avg:.1f}°C")
+        return data
 
 class ProcessingPipeline(ABC):
 
