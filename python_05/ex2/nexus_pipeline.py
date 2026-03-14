@@ -9,27 +9,27 @@ class ProcessingStage(Protocol):
 
 class InputStage:
     def process(self, data: Any) -> Any:
-    print("Transform: Input validation and parsing")
+        print("Transform: Input validation and parsing")
 
-    try:
-        if not isinstance(data, dict):
-            raise TypeError("Expected dict for JSON input")
+        try:
+            if not isinstance(data, dict):
+                raise TypeError("Expected dict for JSON input")
 
-        required_keys = ["sensor", "value", "unit"]
-            for key in required_keys:
-                if key not in data:
-                    raise KeyError(f"Missing required key: {key}")
+                required_keys = ["sensor", "value", "unit"]
+                for key in required_keys:
+                    if key not in data:
+                        raise KeyError(f"Missing required key: {key}")
 
-            if not isinstance(data["sensor"], str):
-                raise TypeError("'sensor' must be a string")
-            if not isinstance(data["value"], (int, float)):
-                raise TypeError("'value' must be a number")
-            if not isinstance(data["unit"], str):
-                raise TypeError("'unit' must be a string")
+                if not isinstance(data["sensor"], str):
+                    raise TypeError("'sensor' must be a string")
+                if not isinstance(data["value"], (int, float)):
+                    raise TypeError("'value' must be a number")
+                if not isinstance(data["unit"], str):
+                    raise TypeError("'unit' must be a string")
 
-            except Exception as e:
-                print(f"Error detected in InputStage: {e}")
-                print("Recovery: passing data as-is to next stage")
+        except Exception as e:
+            print(f"Error detected in InputStage: {e}")
+            print("Recovery: passing data as-is to next stage")
 
         return data
 
@@ -38,17 +38,18 @@ class TransformStage:
     def process(self, data: Any) -> Any:
         print("Transform: Enriched with metadata and validation")
 
-        if isinstance(data,dict):
+        if isinstance(data, dict):
             return {
                 "sensor": data["sensor"],
                 "value": data["value"],
                 "unit": data["unit"]
             }
-        elif isinstance(data,str):
-            return {"rows":data.split(",")}
-        elif isinstance(data,list):
+        elif isinstance(data, str):
+            return {"rows": data.split(",")}
+        elif isinstance(data, list):
             return {"readings": data}
-    return data
+        return data
+
 
 class OutputStage:
     def process(self, data: Any) -> Any:
@@ -60,6 +61,7 @@ class OutputStage:
             print(f"Output: Stream summary: "
                   f"{len(data['readings'])} readings, avg: {avg:.1f}°C")
         return data
+
 
 class ProcessingPipeline(ABC):
 
@@ -86,7 +88,7 @@ class JSONAdapter(ProcessingPipeline):
     def process(self, data: Any) -> Union[str, Any]:
         print("Processing JSON data through pipeline...")
         print("Input:", data)
-        result = self.run_stages(data):
+        result = self.run_stages(data)
         return result
 
 
@@ -95,7 +97,7 @@ class CSVAdapter(ProcessingPipeline):
     def process(self, data: Any) -> Union[str, Any]:
         print("Processing CSV data through same pipeline...")
         print("Input:", data)
-        result = self.run_stages(data):
+        result = self.run_stages(data)
         return result
 
 
@@ -104,7 +106,7 @@ class StreamAdapter(ProcessingPipeline):
     def process(self, data: Any) -> Union[str, Any]:
         print("Processing Stream data through same pipeline...")
         print("Input:", data)
-        result = self.run_stages(data):
+        result = self.run_stages(data)
         return result
 
 
