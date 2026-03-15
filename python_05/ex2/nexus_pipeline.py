@@ -1,4 +1,4 @@
-from typing import Any, List, Dict
+from typing import Any, List
 from abc import ABC, abstractmethod
 
 
@@ -82,10 +82,10 @@ class OutputStage:
 
 
 class ProcessingPipeline(ABC):
-    stages: List[ProcessingStage]
 
-    def __init__(self):
+    def __init__(self, N_id: str) -> None:
         self.stages: List[ProcessingStage] = []
+        self.id = N_id
 
     def add_stage(self, stage: ProcessingStage) -> None:
         self.stages.append(stage)
@@ -102,24 +102,23 @@ class ProcessingPipeline(ABC):
 
 class JSONAdapter(ProcessingPipeline):
     def process(self, data: Any) -> Any:
-        print("\nProcessing JSON data through pipeline...")
+        print(f"\nProcessing JSON data through pipeline {self.id}...")
         return self.run_stages(data)
 
 
 class CSVAdapter(ProcessingPipeline):
     def process(self, data: Any) -> Any:
-        print("\nProcessing CSV data through same pipeline...")
+        print(f"\nProcessing CSV data through same pipeline {self.id}...")
         return self.run_stages(data)
 
 
 class StreamAdapter(ProcessingPipeline):
     def process(self, data: Any) -> Any:
-        print("\nProcessing Stream data through same pipeline...")
+        print(f"\nProcessing Stream data through same pipeline {self.id}...")
         return self.run_stages(data)
 
 
 class NexusManager:
-    pipelines: List[ProcessingPipeline]
 
     def __init__(self):
         self.pipelines: List[ProcessingPipeline] = []
@@ -137,30 +136,30 @@ if __name__ == "__main__":
     print("\nInitializing Nexus Manager...")
     print("Pipeline capacity: 1000 streams/second")
 
-    manager: NexusManager = NexusManager()
+    manager = NexusManager()
 
-    json_pipeline: JSONAdapter = JSONAdapter()
+    json_pipeline = JSONAdapter("JSON_001")
     json_pipeline.add_stage(InputStage())
     json_pipeline.add_stage(TransformStage())
     json_pipeline.add_stage(OutputStage())
     manager.register_pipeline(json_pipeline)
 
-    csv_pipeline: CSVAdapter = CSVAdapter()
+    csv_pipeline = CSVAdapter("CSV_001")
     csv_pipeline.add_stage(InputStage())
     csv_pipeline.add_stage(TransformStage())
     csv_pipeline.add_stage(OutputStage())
     manager.register_pipeline(csv_pipeline)
 
-    stream_pipeline: StreamAdapter = StreamAdapter()
+    stream_pipeline = StreamAdapter("STREAM_001")
     stream_pipeline.add_stage(InputStage())
     stream_pipeline.add_stage(TransformStage())
     stream_pipeline.add_stage(OutputStage())
     manager.register_pipeline(stream_pipeline)
 
     print("\n=== Multi-Format Data Processing ===")
-    json_data: Dict[str, Any] = {"sensor": "temp", "value": 23.5, "unit": "C"}
-    csv_data: str = "user,action,timestamp"
-    stream_data: List[float] = [22.1, 22.1, 22.1, 22.1, 22.1]
+    json_data = {"sensor": "temp", "value": 23.5, "unit": "C"}
+    csv_data = "user,action,timestamp"
+    stream_data = [22.1, 22.1, 22.1, 22.1, 22.1]
 
     manager.run_all([json_data, csv_data, stream_data])
 
