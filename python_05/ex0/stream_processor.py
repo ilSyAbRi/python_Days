@@ -32,7 +32,7 @@ class NumericProcessor(DataProcessor):
         return True
 
     def process(self, data: Any) -> str:
-        
+
         if type(data) in (int, float):
             data = [data]
 
