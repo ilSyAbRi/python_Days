@@ -1,4 +1,5 @@
 from typing import Any, Protocol, Union, List
+from abc import ABC, abstractmethod
 
 
 class ProcessingStage(Protocol):
@@ -80,7 +81,7 @@ class OutputStage:
         return data
 
 
-class ProcessingPipeline():
+class ProcessingPipeline(ABC):
     def __init__(self):
         self.stages: List[ProcessingStage] = []
 
@@ -92,26 +93,27 @@ class ProcessingPipeline():
             data = stage.process(data)
         return data
 
+    @abstractmethod
     def process(self, data: Any) -> Union[str, Any]:
-        return self.run_stages(data)
+        pass
 
 
 class JSONAdapter(ProcessingPipeline):
     def process(self, data: Any) -> Any:
         print("\nProcessing JSON data through pipeline...")
-        return super().process(data)
+        return self.run_stages(data)
 
 
 class CSVAdapter(ProcessingPipeline):
     def process(self, data: Any) -> Any:
         print("\nProcessing CSV data through same pipeline...")
-        return super().process(data)
+        return self.run_stages(data)
 
 
 class StreamAdapter(ProcessingPipeline):
     def process(self, data: Any) -> Any:
         print("\nProcessing Stream data through same pipeline...")
-        return super().process(data)
+        return self.run_stages(data)
 
 
 class NexusManager:
