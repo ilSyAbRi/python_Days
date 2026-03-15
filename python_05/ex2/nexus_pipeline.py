@@ -9,7 +9,7 @@ class ProcessingStage(Protocol):
 
 class InputStage:
     def process(self, data: Any) -> Any:
-        print("Transform: Input validation and parsing")
+        print()
         try:
             if isinstance(data, dict):
                 required_keys = ["sensor", "value", "unit"]
@@ -116,6 +116,7 @@ class StreamAdapter(ProcessingPipeline):
 
 
 class NexusManager:
+
     def __init__(self):
         self.pipelines: List[ProcessingPipeline] = []
 
@@ -126,38 +127,41 @@ class NexusManager:
         for pipeline, data in zip(self.pipelines, data_list):
             pipeline.process(data)
 
+    def chain(self, pipelines: List[ProcessingPipeline], data: Any):
+        current_data = data
+        for pipeline in pipelines:
+            current_data = pipeline.run_stages(current_data)
+        return current_data
+
 
 if __name__ == "__main__":
     print("=== CODE NEXUS - ENTERPRISE PIPELINE SYSTEM ===")
-    print("\nInitializing Nexus Manager...")
-    print("Pipeline capacity: 1000 streams/second\n")
-    print("\nCreating Data Processing Pipeline...")
-    print("Stage 1: Input validation and parsing")
-    print("Stage 2: Data transformation and enrichment")
-    print("Stage 3: Output formatting and delivery\n")
-    print("\n=== Multi-Format Data Processing ===\n")
+    print("Initializing Nexus Manager...")
+    print("Pipeline capacity: 1000 streams/second")
 
-    json_data = {"sensor": "temp", "value": 23.5, "unit": "C"}
-    csv_data = "user,action,timestamp"
-    stream_data = [22.0, 22.2, 22.1, 22.1, 22.1]
+    manager = NexusManager()
 
     json_pipeline = JSONAdapter("pipeline_json")
     json_pipeline.add_stage(InputStage())
     json_pipeline.add_stage(TransformStage())
     json_pipeline.add_stage(OutputStage())
-    json_pipeline.process(json_data)
-    print()
+    manager.register_pipeline(json_pipeline)
 
     csv_pipeline = CSVAdapter("pipeline_csv")
     csv_pipeline.add_stage(InputStage())
     csv_pipeline.add_stage(TransformStage())
     csv_pipeline.add_stage(OutputStage())
-    csv_pipeline.process(csv_data)
-    print()
+    manager.register_pipeline(csv_pipeline)
 
     stream_pipeline = StreamAdapter("pipeline_stream")
-    print("Input: Real-time sensor stream")
     stream_pipeline.add_stage(InputStage())
     stream_pipeline.add_stage(TransformStage())
     stream_pipeline.add_stage(OutputStage())
-    stream_pipeline.process(stream_data)
+    manager.register_pipeline(stream_pipeline)
+
+    print("\n=== Multi-Format Data Processing ===")
+    json_data = {"sensor": "temp", "value": 23.5, "unit": "C"}
+    csv_data = "user,action,timestamp"
+    stream_data = [22.1, 22.1, 22.1, 22.1, 22.1]  # fixed values to match example
+
+    manager.run_all([json_data, csv_data, stream_data])
