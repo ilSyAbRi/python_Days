@@ -1,8 +1,8 @@
-from typing import Any, Protocol, Union, List
+from typing import Any, List, Dict
 from abc import ABC, abstractmethod
 
 
-class ProcessingStage(Protocol):
+class ProcessingStage(ABC):
     def process(self, data: Any) -> Any:
         ...
 
@@ -11,7 +11,7 @@ class InputStage:
     def process(self, data: Any) -> Any:
         try:
             if isinstance(data, dict):
-                required_keys = ["sensor", "value", "unit"]
+                required_keys: List[str] = ["sensor", "value", "unit"]
                 for key in required_keys:
                     if key not in data:
                         raise KeyError(f"Missing required key: {key}")
@@ -24,8 +24,8 @@ class InputStage:
                 print("Input:", data)
 
             elif isinstance(data, str):
-                expected_columns = ["user", "action", "timestamp"]
-                columns = data.split(",")
+                expected_columns: List[str] = ["user", "action", "timestamp"]
+                columns: List[str] = data.split(",")
                 for col in expected_columns:
                     if col not in columns:
                         raise KeyError(f"Missing required column: {col}")
@@ -60,7 +60,7 @@ class TransformStage:
         elif isinstance(data, list):
             print("Transform: Aggregated and filtered")
             return {"readings": data}
-        return data
+        return {}
 
 
 class OutputStage:
@@ -69,23 +69,25 @@ class OutputStage:
             print(f"Output: Processed {data['sensor']} reading: "
                   f"{data['value']}°C (Normal range)")
         elif "rows" in data:
-            num_actions = data["rows"].count("action")
+            num_actions: int = data["rows"].count("action")
             print(f"Output: User activity logged: {num_actions}"
                   "actions processed")
         elif "readings" in data:
-            readings = data["readings"]
-            count = len(readings)
-            avg = sum(readings) / count
+            readings: List[float] = data["readings"]
+            count: int = len(readings)
+            avg: float = sum(readings) / count
             print(f"Output: Stream summary: {count} "
                   f"readings, avg: {avg:.1f}°C")
         return data
 
 
 class ProcessingPipeline(ABC):
+    stages: List[ProcessingStage]
+
     def __init__(self):
         self.stages: List[ProcessingStage] = []
 
-    def add_stage(self, stage: ProcessingStage):
+    def add_stage(self, stage: ProcessingStage) -> None:
         self.stages.append(stage)
 
     def run_stages(self, data: Any) -> Any:
@@ -94,7 +96,7 @@ class ProcessingPipeline(ABC):
         return data
 
     @abstractmethod
-    def process(self, data: Any) -> Union[str, Any]:
+    def process(self, data: Any) -> Any:
         pass
 
 
@@ -117,14 +119,15 @@ class StreamAdapter(ProcessingPipeline):
 
 
 class NexusManager:
+    pipelines: List[ProcessingPipeline]
 
     def __init__(self):
         self.pipelines: List[ProcessingPipeline] = []
 
-    def register_pipeline(self, pipeline: ProcessingPipeline):
+    def register_pipeline(self, pipeline: ProcessingPipeline) -> None:
         self.pipelines.append(pipeline)
 
-    def run_all(self, data_list: List[Any]):
+    def run_all(self, data_list: List[Any]) -> None:
         for pipeline, data in zip(self.pipelines, data_list):
             pipeline.process(data)
 
@@ -134,30 +137,30 @@ if __name__ == "__main__":
     print("\nInitializing Nexus Manager...")
     print("Pipeline capacity: 1000 streams/second")
 
-    manager = NexusManager()
+    manager: NexusManager = NexusManager()
 
-    json_pipeline = JSONAdapter()
+    json_pipeline: JSONAdapter = JSONAdapter()
     json_pipeline.add_stage(InputStage())
     json_pipeline.add_stage(TransformStage())
     json_pipeline.add_stage(OutputStage())
     manager.register_pipeline(json_pipeline)
 
-    csv_pipeline = CSVAdapter()
+    csv_pipeline: CSVAdapter = CSVAdapter()
     csv_pipeline.add_stage(InputStage())
     csv_pipeline.add_stage(TransformStage())
     csv_pipeline.add_stage(OutputStage())
     manager.register_pipeline(csv_pipeline)
 
-    stream_pipeline = StreamAdapter()
+    stream_pipeline: StreamAdapter = StreamAdapter()
     stream_pipeline.add_stage(InputStage())
     stream_pipeline.add_stage(TransformStage())
     stream_pipeline.add_stage(OutputStage())
     manager.register_pipeline(stream_pipeline)
 
     print("\n=== Multi-Format Data Processing ===")
-    json_data = {"sensor": "temp", "value": 23.5, "unit": "C"}
-    csv_data = "user,action,timestamp"
-    stream_data = [22.1, 22.1, 22.1, 22.1, 22.1]
+    json_data: Dict[str, Any] = {"sensor": "temp", "value": 23.5, "unit": "C"}
+    csv_data: str = "user,action,timestamp"
+    stream_data: List[float] = [22.1, 22.1, 22.1, 22.1, 22.1]
 
     manager.run_all([json_data, csv_data, stream_data])
 
