@@ -1,8 +1,8 @@
-from typing import Any, List
+from typing import Any, List, Protocol
 from abc import ABC, abstractmethod
 
 
-class ProcessingStage(ABC):
+class ProcessingStage(Protocol):
     def process(self, data: Any) -> Any:
         ...
 
