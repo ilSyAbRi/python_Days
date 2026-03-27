@@ -18,9 +18,18 @@ def main() -> None:
     print(dragon.get_card_info())
     print("\nPlaying Fire Dragon with 6 mana available:")
     do_Playable_Test(dragon, 6)
+    game_state = {"mana": 6}
+    result = dragon.play(game_state)
+    print(result)
+
+    Goblin = CreatureCard("Goblin Warrior", 2, "Common", 3, 2)
+    print("\nFire Dragon attacks Goblin Warrior:")
+    attack = dragon.attack_target(Goblin)
+    print(attack)
     print("\nTesting insufficient mana (3 available):")
     do_Playable_Test(dragon, 3)
     print("\nAbstract pattern successfully demonstrated!")
+
 
 if __name__ == "__main__":
     try:
