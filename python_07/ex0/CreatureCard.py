@@ -14,3 +14,11 @@ class CreatureCard(Card):
             "mana_used": self.cost,
             "effect": "Creature summoned to battlefield"
         }
+
+    def attack_target(self, target) -> dict:
+        return {
+            "attacker": self.name,
+            "target": target.name,
+            "damage_dealt": self.attack,
+            "combat_resolved": True
+        }
