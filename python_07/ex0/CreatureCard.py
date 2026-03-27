@@ -6,3 +6,10 @@ class CreatureCard(Card):
         super().__init__(name, cost, rarity)
         self.attack = attack
         self.health = health
+
+    def play(self, game_state: dict) -> dict:
+        return {
+            "card_played": self.name,
+            "mana_used": self.cost,
+            "effect": "Creature summoned to battlefield"
+        }
