@@ -13,6 +13,6 @@ class Card (ABC):
 
     def get_card_info(self) -> dict:
         return {"name": self.name, "cost": self.cost, "rarity": self.rarity}
-    
+
     def is_playable(self, available_mana: int) -> bool:
         return self.cost <= available_mana
