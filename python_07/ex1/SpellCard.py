@@ -8,6 +8,7 @@ class SpellCard(Card):
         self.effect_type = effect_type
 
     def play(self, game_state: dict) -> dict:
+        game_state["mana"] -= self.cost
         return {
             "card_played": self.name,
             "mana_used": self.cost,
