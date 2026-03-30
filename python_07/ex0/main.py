@@ -1,4 +1,5 @@
 from ex0.CreatureCard import CreatureCard
+from ex0.Card import Rarity
 
 
 def do_Playable_Test(card: CreatureCard, available_mana: int) -> None:
@@ -13,19 +14,19 @@ def main() -> None:
 
     print("\nTesting Abstract Base Class Design:")
 
-    dragon = CreatureCard("Fire Dragon", 5, "Legendary", 7, 5)
+    dragon = CreatureCard("Fire Dragon", 5, Rarity.LEGENDARY.value, 7, 5)
     print("\nCreatureCard Info:")
     print(dragon.get_card_info())
     print("\nPlaying Fire Dragon with 6 mana available:")
     do_Playable_Test(dragon, 6)
     game_state = {"mana": 6}
     result = dragon.play(game_state)
-    print(result)
+    print("Play result:", result)
 
     Goblin = CreatureCard("Goblin Warrior", 2, "Common", 3, 2)
     print("\nFire Dragon attacks Goblin Warrior:")
     attack = dragon.attack_target(Goblin)
-    print(attack)
+    print("Attack result:", attack)
     print("\nTesting insufficient mana (3 available):")
     do_Playable_Test(dragon, 3)
     print("\nAbstract pattern successfully demonstrated!")
