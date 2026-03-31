@@ -4,7 +4,7 @@ from ex0.Card import Card
 
 
 class Deck:
-    def __init__(self):
+    def __init__(self) -> None:
         self.cards = []
 
     def add_card(self, card: Card) -> None:
@@ -17,7 +17,7 @@ class Deck:
                 return True
         return False
 
-    def shuffle(self):
+    def shuffle(self) -> None:
         random.shuffle(self.cards)
 
     def draw_card(self) -> Optional[Card]:

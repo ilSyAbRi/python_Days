@@ -2,7 +2,7 @@ from ex0.Card import Card
 
 
 class SpellCard(Card):
-    def __init__(self, name: str, cost: int, 
+    def __init__(self, name: str, cost: int,
                  rarity: str, effect_type: str) -> None:
         super().__init__(name, cost, rarity)
         self.effect_type = effect_type
@@ -12,7 +12,7 @@ class SpellCard(Card):
         return {
             "card_played": self.name,
             "mana_used": self.cost,
-            "effect": f"Deal {self.cost} {self.effect_type} to target"
+            "effect": f"Deal {self.cost} damage to target"
         }
 
     def resolve_effect(self, targets: list) -> dict:
