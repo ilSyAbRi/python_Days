@@ -26,6 +26,16 @@ class Deck:
         return self.cards.pop()
 
     def get_deck_stats(self) -> dict:
+ 
+        if len(self.cards) == 0:
+            return {
+                "total_cards": 0,
+                "creatures": 0,
+                "spells": 0,
+                "artifacts": 0,
+                "avg_cost": 0.0
+            }
+
         creatures = 0
         spells = 0
         artifacts = 0
