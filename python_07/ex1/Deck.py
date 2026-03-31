@@ -26,7 +26,7 @@ class Deck:
         return self.cards.pop()
 
     def get_deck_stats(self) -> dict:
- 
+
         if len(self.cards) == 0:
             return {
                 "total_cards": 0,
