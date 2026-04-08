@@ -16,7 +16,7 @@ class Creature(ABC):
 
 class Flameling(Creature):
     def __init__(self):
-        super().__init__("Flameling","Fire")
+        super().__init__("Flameling", "Fire")
 
     def attack(self) -> str:
         return "Flameling uses Ember!"
@@ -24,7 +24,7 @@ class Flameling(Creature):
 
 class Pyrodon(Creature):
     def __init__(self):
-        super().__init__("Pyrodon","Fire/Flying")
+        super().__init__("Pyrodon", "Fire/Flying")
 
     def attack(self) -> str:
         return "Pyrodon uses Flamethrower!"
@@ -32,7 +32,7 @@ class Pyrodon(Creature):
 
 class Aquabub(Creature):
     def __init__(self):
-        super().__init__("Aquabub","Water")
+        super().__init__("Aquabub", "Water")
 
     def attack(self) -> str:
         return "Aquabub uses Water Gun!"
@@ -46,7 +46,7 @@ class Torragon(Creature):
         return "Torragon uses Hydro Pump!"
 
 
-class CreatureFactory(ABC)
+class CreatureFactory(ABC):
     @abstractmethod
     def create_base(self):
         pass
@@ -58,16 +58,15 @@ class CreatureFactory(ABC)
 
 class FlameFactory(CreatureFactory):
     def create_base(self):
-        pass
-
+        return Flameling()
 
     def create_evolved(self):
-        pass
+        return Pyrodon()
 
 
 class AquaFactory(CreatureFactory):
     def create_base(self):
-        pass
+        return Aquabub()
 
     def create_evolved(self):
-        pass
+        return Torragon()
