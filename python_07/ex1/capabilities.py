@@ -9,7 +9,7 @@ class HealCapability(ABC):
 
 
 class TransformCapability(ABC):
-    def __init__(self) -> str:
+    def __init__(self):
         self.transformed = False
 
     @abstractmethod
@@ -23,7 +23,7 @@ class TransformCapability(ABC):
 
 class Sproutling(Creature, HealCapability):
     def __init__(self):
-        super().__init__("Sproutling", "Grass")
+        Creature.__init__(self, "Sproutling", "Grass")
 
     def attack(self) -> str:
         return "Sproutling uses Vine Whip!"
@@ -34,7 +34,7 @@ class Sproutling(Creature, HealCapability):
 
 class Bloomelle(Creature, HealCapability):
     def __init__(self):
-        super().__init__("Bloomelle", "Grass/Fairy")
+        Creature.__init__(self, "Bloomelle", "Grass/Fairy")
 
     def attack(self) -> str:
         return "Bloomelle uses Petal Dance!"
