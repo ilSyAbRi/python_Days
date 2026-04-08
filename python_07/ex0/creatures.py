@@ -35,16 +35,28 @@ class Torragon(Creature):
 
 
 class CreatureFactory:
+    @abstractmethod
     def create_base(self):
         pass
 
+    @abstractmethod
     def create_evolved(self):
         pass
 
 
 class FlameFactory(CreatureFactory):
-    pass
+    @abstractmethod
+    def create_base(self):
+        pass
+    
+    @abstractmethod
+    def create_evolved(self):
+        pass
 
 
 class AquaFactory(CreatureFactory):
-    pass
+    def create_base(self):
+        pass
+
+    def create_evolved(self):
+        pass
