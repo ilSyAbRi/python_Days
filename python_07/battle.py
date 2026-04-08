@@ -19,11 +19,13 @@ def battle(factory1, factory2):
     base_creature1 = factory1.create_base()
     base_creature2 = factory2.create_base()
 
+    print("Testing battle")
+
     print(base_creature1.describe())
-    print("vs.")
+    print(" vs.")
     print(base_creature2.describe())
 
-    print("fight!")
+    print(" fight!")
     print(base_creature1.attack())
     print(base_creature2.attack())
 
@@ -31,10 +33,12 @@ def battle(factory1, factory2):
 def main():
     F = FlameFactory()
     W = AquaFactory()
+
     test_factory(F)
-    print("\n")
+    print()
     test_factory(W)
-    print("\n")
+
+    print()
     battle(F, W)
 
 
