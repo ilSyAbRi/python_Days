@@ -1,3 +1,3 @@
-from factories import Flameling, Pyrodon, Aquabub, Torragon
+from creatures import FlameFactory, AquaFactory
 
-__all__ = ["Flameling", "Pyrodon", "Aquabub", "Torragon"]
+__all__ = ["FlameFactory", "Aquafactory"]
