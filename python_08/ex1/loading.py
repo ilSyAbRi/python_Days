@@ -1,37 +1,41 @@
-def main() -> None:
-    """The main loading sequence."""
-    print("LOADING STATUS: Checking for programs...")
+def do_check_and_import():
+    print("LOADING STATUS: Loading programs...")
+    print("Checking dependencies...\n")
 
-    # Step 1: The Easy Check
-    # We check the 'spec' (identity card) of each library
-    for name in ["pandas", "numpy", "matplotlib"]:
-        if importlib.util.find_spec(name) is None:
-            print(f"Error: {name} is missing. Run: pip install {name}")
-            sys.exit(1)
-        print(f"[OK] {name} is installed.")
+    try:
+        import numpy as np
+        import pandas as pd
+        import matplotlib.pyplot as plt
+        import requests
+    except ImportError as e:
+        print(f"[ERROR] Missing dependency: {e.name}")
+        print("Install it using pip or poetry")
+        exit()
 
-    # Step 2 & 3: The Easy Math (Imports happen here to avoid crash)
-    import numpy as np
-    import pandas as pd
-    import matplotlib.pyplot as plt
+def get_version():
+    print(f"[OK] numpy ({np.__version__}) - ready")
+    print(f"[OK] pandas ({pd.__version__}) - ready")
+    print(f"[OK] matplotlib ({plt.__version__}) - ready")
 
-    print("\nGenerating Matrix Signal...")
-    # One-liner: Generate 1000 random numbers and add them up (cumsum)
-    # This fulfills the 'no range()' and 'no hardcoding' rules.
-    data = np.random.randn(1000).cumsum()
+def do_generate_matrix():
+    
+    print("\nAnalyzing Matrix data...")
 
-    # Step 3: Put it in a Table
-    df = pd.DataFrame(data, columns=["Signal"])
+    data = np.random.randn(1000)
+    print("Processing 1000 data points...")
+    df = pd.DataFrame({"value": data})
 
-    # Step 4: Save the Graph
-    plt.plot(df["Signal"], color="green")
-    plt.title("Matrix Analysis")
+    print("\nStatistical summary:")
+    print(df.describe())
+
+    plt.hist(data, bins=30)
+    plt.title("Matrix Data Analysis")
     plt.savefig("matrix_analysis.png")
-    print("Graph saved as matrix_analysis.png")
+    print("\nVisualization saved to: matrix_analysis.png")
 
-    # Step 5: Requirements Check
-    compare_tools()
+def main():
+    do_check_and_import()
+    get_version()
+    do_generate_matrix()
 
-
-if __name__ == "__main__":
-    main()
+main()
