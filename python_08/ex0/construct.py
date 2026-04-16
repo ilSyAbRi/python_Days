@@ -22,7 +22,6 @@ def get_package_path() -> str:
 def main() -> None:
     """Execute the environment detection logic."""
     in_matrix: bool = is_venv()
-
     if in_matrix:
         print("Inside the Construct")
         print("-" * 20)
