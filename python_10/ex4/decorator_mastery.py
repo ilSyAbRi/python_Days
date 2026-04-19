@@ -1,7 +1,7 @@
 import functools
 import time
-from typing import Any
 from collections.abc import Callable
+
 
 def spell_timer(func: Callable) -> Callable:
     @functools.wraps(func)
@@ -14,6 +14,7 @@ def spell_timer(func: Callable) -> Callable:
         return res
     return wrapper
 
+
 def power_validator(min_power: int) -> Callable:
     def deco(func: Callable) -> Callable:
         @functools.wraps(func)
@@ -24,6 +25,7 @@ def power_validator(min_power: int) -> Callable:
         return wrapper
     return deco
 
+
 def retry_spell(max_attempts: int) -> Callable:
     def deco(func: Callable) -> Callable:
         @functools.wraps(func)
@@ -32,10 +34,14 @@ def retry_spell(max_attempts: int) -> Callable:
                 try:
                     return func(*args, **kwargs)
                 except Exception:
-                    print(f"Spell failed, retrying... (attempt {i}/{max_attempts})")
+                    print(
+                        "Spell failed, retrying... "
+                        f"(attempt {i}/{max_attempts})"
+                        )
             return f"Spell casting failed after {max_attempts} attempts"
         return wrapper
     return deco
+
 
 class MageGuild:
     @staticmethod
@@ -46,8 +52,10 @@ class MageGuild:
     def cast_spell(self, spell_name: str, power: int) -> str:
         return f"Successfully cast {spell_name} with {power} power"
 
+
 if __name__ == "__main__":
     print("Testing spell timer...")
+
     @spell_timer
     def fireball():
         time.sleep(0.101)
