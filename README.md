@@ -2,6 +2,9 @@
 
 These PDFs contain the subjects we started with in the Python module at 42 School.
 
+> These are the latest versions of the subjects available at the time.  
+> For some days, I worked with the older version because the new one had not been released yet.
+
 ## Files
 
 - [py0.pdf](./subjects/py0.pdf)
